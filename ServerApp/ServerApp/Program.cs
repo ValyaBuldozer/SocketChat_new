@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace ServerApp
 {
@@ -13,63 +14,69 @@ namespace ServerApp
         static void Main(string[] args)
         {
 
-            // Устанавливаем для сокета локальную конечную точку
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            //Socket sListener = LocalSocketServer.GetSocket(8800);
+            //List<LocalSocketServer> clientSocketList = new List<LocalSocketServer>();
 
-            // Создаем сокет Tcp/Ip
-            Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            IPHostEntry iPHost = Dns.GetHostEntry("localhost");
+            IPAddress iPAdr = iPHost.AddressList[0];
+            IPEndPoint iPEndPoint = new IPEndPoint(iPAdr, 8800);
+            Socket sListener = new Socket(iPAdr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
             try
             {
-                sListener.Bind(ipEndPoint);
+                sListener.Bind(iPEndPoint);
                 sListener.Listen(10);
 
-                // Начинаем слушать соединения
-                while (true)
+                while(true)
                 {
-                    Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
-
-                    // Программа приостанавливается, ожидая входящее соединение
                     Socket handler = sListener.Accept();
-                    string data = null;
-
-                    // Мы дождались клиента, пытающегося с нами соединиться
-
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-
-                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    // Показываем данные на консоли
-                    Console.Write("Полученный текст: " + data + "\n\n");
-
-                    // Отправляем ответ клиенту\
-                    string reply = "Спасибо за запрос в " + data.Length.ToString()
-                            + " символов";
-                    byte[] msg = Encoding.UTF8.GetBytes(reply);
-                    handler.Send(msg);
-
-                    if (data.IndexOf("<TheEnd>") > -1)
-                    {
-                        Console.WriteLine("Сервер завершил соединение с клиентом.");
-                        break;
-                    }
-
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
+                    Thread clientTrhead = new Thread(new ParameterizedThreadStart(ClientThread));
+                    clientTrhead.Start(handler);
                 }
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-            finally
+
+
+
+
+        }
+
+        static private void ClientThread(object handler)
+        {
+            if (!(handler is Socket)) throw new Exception("typeerror");
+
+            while (true)
             {
-                Console.ReadLine();
+
+                Socket clientSokcet = (handler as Socket);
+                string data = null;
+                byte[] bytes = new byte[1024];
+                int byteRec = clientSokcet.Receive(bytes);
+
+                data += Encoding.UTF8.GetString(bytes, 0, byteRec);
+
+                Console.WriteLine("Text:"+data);
+
+                string reply = ("Message is recieved, length: " + data.Length.ToString());
+                byte[] replyMsg = Encoding.UTF8.GetBytes(reply);
+                clientSokcet.Send(replyMsg);
+
+                if(data.IndexOf("€")>-1)
+                {
+                    Console.WriteLine("Соедениение закрыто");
+                    clientSokcet.Shutdown(SocketShutdown.Both);
+                    clientSokcet.Close();
+                }
+
             }
+
+            
+            
         }
     }
 }

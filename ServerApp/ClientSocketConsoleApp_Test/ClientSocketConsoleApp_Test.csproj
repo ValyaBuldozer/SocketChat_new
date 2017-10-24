@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CB4F4879-2DBC-4F09-9CBD-65F86FE3C9DB}</ProjectGuid>
+    <ProjectGuid>{8ECB62D5-E353-4B15-A0EA-CCDA10849253}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ServerApp</RootNamespace>
-    <AssemblyName>ServerApp</AssemblyName>
+    <RootNamespace>ClientSocketConsoleApp_Test</RootNamespace>
+    <AssemblyName>ClientSocketConsoleApp_Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalSocketServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
