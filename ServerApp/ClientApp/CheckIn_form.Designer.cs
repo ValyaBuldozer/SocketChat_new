@@ -34,27 +34,28 @@
             this.password_textBox = new System.Windows.Forms.TextBox();
             this.login_textBox = new System.Windows.Forms.TextBox();
             this.checkin_button = new System.Windows.Forms.Button();
+            this.close_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // login_label
             // 
             this.login_label.AutoSize = true;
-            this.login_label.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.login_label.Location = new System.Drawing.Point(29, 28);
+            this.login_label.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.login_label.Location = new System.Drawing.Point(53, 25);
             this.login_label.Name = "login_label";
-            this.login_label.Size = new System.Drawing.Size(52, 16);
+            this.login_label.Size = new System.Drawing.Size(57, 23);
             this.login_label.TabIndex = 0;
-            this.login_label.Text = "Логин:";
+            this.login_label.Text = "LOG:";
             // 
             // password_label
             // 
             this.password_label.AutoSize = true;
-            this.password_label.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.password_label.Location = new System.Drawing.Point(29, 77);
+            this.password_label.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.password_label.Location = new System.Drawing.Point(21, 70);
             this.password_label.Name = "password_label";
-            this.password_label.Size = new System.Drawing.Size(63, 16);
+            this.password_label.Size = new System.Drawing.Size(89, 23);
             this.password_label.TabIndex = 1;
-            this.password_label.Text = "Пароль:";
+            this.password_label.Text = "PSWRD:";
             // 
             // password_textBox
             // 
@@ -75,14 +76,25 @@
             // checkin_button
             // 
             this.checkin_button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkin_button.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkin_button.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkin_button.Location = new System.Drawing.Point(116, 123);
             this.checkin_button.Name = "checkin_button";
-            this.checkin_button.Size = new System.Drawing.Size(104, 32);
+            this.checkin_button.Size = new System.Drawing.Size(110, 32);
             this.checkin_button.TabIndex = 4;
             this.checkin_button.Text = "CHECK IN";
             this.checkin_button.UseVisualStyleBackColor = true;
             this.checkin_button.Click += new System.EventHandler(this.checkin_button_Click);
+            // 
+            // close_button
+            // 
+            this.close_button.BackgroundImage = global::ClientApp.Properties.Resources.close_button;
+            this.close_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.close_button.Location = new System.Drawing.Point(-5, -3);
+            this.close_button.Name = "close_button";
+            this.close_button.Size = new System.Drawing.Size(52, 51);
+            this.close_button.TabIndex = 5;
+            this.close_button.UseVisualStyleBackColor = true;
+            this.close_button.Click += new System.EventHandler(this.close_button_Click);
             // 
             // CheckIn_form
             // 
@@ -90,6 +102,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(329, 167);
+            this.Controls.Add(this.close_button);
             this.Controls.Add(this.checkin_button);
             this.Controls.Add(this.login_textBox);
             this.Controls.Add(this.password_textBox);
@@ -113,5 +126,6 @@
         private System.Windows.Forms.TextBox password_textBox;
         private System.Windows.Forms.TextBox login_textBox;
         private System.Windows.Forms.Button checkin_button;
+        private System.Windows.Forms.Button close_button;
     }
 }
