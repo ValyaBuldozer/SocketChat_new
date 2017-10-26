@@ -16,7 +16,7 @@ namespace ClientApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Window_form());
+            Application.Run(new CheckIn_form());
         }
     }
 }
