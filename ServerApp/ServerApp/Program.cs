@@ -13,7 +13,7 @@ namespace ServerApp
     {
         static void Main(string[] args)
         {
-            LocalSocketServer server = new LocalSocketServer();
+            Server server = new Server();
             server.Run();
         }
     }
