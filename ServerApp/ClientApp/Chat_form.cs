@@ -41,7 +41,13 @@ namespace ClientApp
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox ab = new AboutBox();
-            ab.ShowDialog();
+            ab.Show();
+        }
+
+        private void сменитьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Program.cf.Show();
         }
     }
 }

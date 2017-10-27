@@ -116,6 +116,7 @@
     <None Include="Resources\ICO.ico" />
     <Content Include="ICO.ico" />
     <None Include="Resources\close-button.png" />
+    <None Include="Resources\close.png" />
     <Content Include="sico.ico" />
     <None Include="Resources\enter.png" />
   </ItemGroup>
