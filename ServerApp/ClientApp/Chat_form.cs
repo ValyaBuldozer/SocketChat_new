@@ -31,10 +31,5 @@ namespace ClientApp
         {
             this.Close();
         }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }
