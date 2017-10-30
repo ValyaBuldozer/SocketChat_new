@@ -70,6 +70,7 @@
             this.logoPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.BackgroundImage")));
             this.logoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logoPictureBox.ErrorImage = global::ClientApp.Properties.Resources.communication;
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
