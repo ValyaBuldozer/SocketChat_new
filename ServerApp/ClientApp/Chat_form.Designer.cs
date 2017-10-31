@@ -65,6 +65,7 @@
             this.window_chat.Multiline = true;
             this.window_chat.Name = "window_chat";
             this.window_chat.ReadOnly = true;
+            this.window_chat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.window_chat.Size = new System.Drawing.Size(417, 291);
             this.window_chat.TabIndex = 1;
             // 
@@ -75,6 +76,7 @@
             this.input_text.Location = new System.Drawing.Point(186, 472);
             this.input_text.Multiline = true;
             this.input_text.Name = "input_text";
+            this.input_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.input_text.Size = new System.Drawing.Size(329, 64);
             this.input_text.TabIndex = 2;
             // 
@@ -149,6 +151,7 @@
             this.users.Multiline = true;
             this.users.Name = "users";
             this.users.ReadOnly = true;
+            this.users.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.users.Size = new System.Drawing.Size(142, 291);
             this.users.TabIndex = 7;
             // 

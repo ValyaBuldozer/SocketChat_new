@@ -29,6 +29,11 @@ namespace ClientApp
         private void checkin_button_Click(object sender, EventArgs e)
         {
             chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text);
+            //
+            //
+            this.Hide();
+            Chat_form cf = new Chat_form();
+            cf.ShowDialog();
         }
 
         private void close_button_Click(object sender, EventArgs e)
