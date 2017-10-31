@@ -12,23 +12,29 @@ namespace ClientApp
 {
     public partial class CheckIn_form : Form
     {
+        private void HandlerServerErrorEvent(object sender,ServerErrorEventInfo e)
+        {
+            MessageBox.Show("Server error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        Chat_form chat_Form;
+
         public CheckIn_form()
         {
             InitializeComponent();
+            chat_Form = new Chat_form();
+            chat_Form.client.ServerErrorEvent += HandlerServerErrorEvent;
         }
 
         private void checkin_button_Click(object sender, EventArgs e)
         {
-
-            this.Hide();
-            Chat_form cf = new Chat_form();
-            cf.ShowDialog();
-            
+            chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text);
         }
 
         private void close_button_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
     }
 }

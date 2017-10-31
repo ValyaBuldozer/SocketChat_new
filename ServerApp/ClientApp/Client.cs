@@ -3,72 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 
 namespace ClientApp
 {
-    class Client
+    public class ServerErrorEventInfo:EventArgs
     {
-        public Client(string message)
+        public ServerErrorEventInfo(string info)
         {
-            this.message = message;
+            this.info = info;
         }
-        
-        string message;
-        public string Message { get => message; set => message = value; }
+        public string info;
+    }
 
-        public void Launching()
+    public class Client
+    {
+        public event EventHandler<ServerErrorEventInfo> ServerErrorEvent;
+
+        public virtual void ServerErrorEventRun(ServerErrorEventInfo e)
+        {
+            EventHandler<ServerErrorEventInfo> handler = ServerErrorEvent;
+            handler(this, e);
+        }
+
+        public void ConnectToServer(string username,string password)
         {
             try
             {
-                SendMessageFromSocket(11000);
+                IPHostEntry iPHost = Dns.GetHostEntry("localhost");
+                IPAddress iPAdr = iPHost.AddressList[0];
+                IPEndPoint iPEndPoint = new IPEndPoint(iPAdr, 8800);
+                Socket sender = new Socket(iPAdr.AddressFamily, SocketType.Stream,
+                    ProtocolType.Tcp);
+
+                sender.Connect(iPEndPoint);
+
+
             }
-            catch (Exception ex)
+            catch (SocketException)
             {
-                Console.WriteLine(ex.ToString());
+                ServerErrorEventRun(new ServerErrorEventInfo("no connection"));
             }
-            
         }
-        public void SendMessageFromSocket(int port)
-        {
-            // Буфер для входящих данных
-            byte[] bytes = new byte[1024];
-
-            // Соединяемся с удаленным устройством
-
-            // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
-
-            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Соединяем сокет с удаленной точкой
-            sender.Connect(ipEndPoint);
-
-            //Console.Write("Введите сообщение: ");
-            //message = Console.ReadLine();
-
-            //Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            //Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
-
-            // Используем рекурсию для неоднократного вызова SendMessageFromSocket()
-            if (message.IndexOf("<TheEnd>") == -1)
-                SendMessageFromSocket(port);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-        }
-
     }
 }

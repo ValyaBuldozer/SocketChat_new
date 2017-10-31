@@ -14,7 +14,8 @@ namespace ClientApp
 {
     public partial class Chat_form : Form
     {
-        Client c;
+        public Client client = new Client();
+
         public Chat_form()
         {
             InitializeComponent();
@@ -22,9 +23,9 @@ namespace ClientApp
 
         private void send_button_Click(object sender, EventArgs e)
         {
-            c = new Client(input_text.Text);
-            c.Launching();
-            window_chat.Text += input_text.Text + "\r\n";
+            //c = new Client(input_text.Text);
+            //c.Launching();
+            //window_chat.Text += input_text.Text + "\r\n";
         }
 
         private void exit_button_Click(object sender, EventArgs e)
