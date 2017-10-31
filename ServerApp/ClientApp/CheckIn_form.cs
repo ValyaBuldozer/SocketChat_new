@@ -14,7 +14,7 @@ namespace ClientApp
     {
         private void HandlerServerErrorEvent(object sender,ServerErrorEventInfo e)
         {
-            MessageBox.Show("Server error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.info, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         Chat_form chat_Form;

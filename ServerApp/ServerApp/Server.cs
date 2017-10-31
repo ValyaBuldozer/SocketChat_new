@@ -159,7 +159,7 @@ namespace ServerApp
                         }
                     }
                     else
-                        socket.Send(Encoding.UTF8.GetBytes("<fail>"));
+                        socket.Send(Encoding.UTF8.GetBytes("<invalid_password>"));
                 }
                 catch(KeyNotFoundException ex)
                 {
