@@ -18,7 +18,9 @@ namespace ClientApp
 
         public Chat_form()
         {
+            ;
             InitializeComponent();
+
             client.MessageEvent += MessageEvevntHandler;
             Client.ServerErrorEvent += ServerErrorEventHandler;
         }
@@ -28,35 +30,20 @@ namespace ClientApp
             client.SendMessage(sendMessage_textBox.Text);
         }
 
-        private void exit_button_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        
 
-        private void Exit_ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+       
 
-        }
+        
 
-        private void About_ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox ab = new AboutBox();
-            ab.Show();
-        }
-
-        private void changeUser_ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Program.cf.Show();
-        }
+       
 
 
 
-        private void MessageEvevntHandler(object handler,MessageEventInfo e)
+        private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
             //я не понимаю что это но оно работает
-            Action action = () => this.Chat_textBox.Text+=e.message+Environment.NewLine;
+            Action action = () => this.Chat_textBox.Text += e.message + Environment.NewLine;
 
             if (InvokeRequired)
                 Invoke(action);
@@ -64,7 +51,7 @@ namespace ClientApp
                 action();
         }
 
-        private  void ServerErrorEventHandler(object handler,ServerErrorEventInfo e)
+        private void ServerErrorEventHandler(object handler, ServerErrorEventInfo e)
         {
             if (e.info != "Connection to server has been served") return;
 
@@ -74,7 +61,9 @@ namespace ClientApp
             {
                 sendMessage_textBox.Clear();
                 Chat_textBox.Clear();
-                users_textBox.Clear();
+                //
+                users.Items.Clear();
+                //
                 client = new Client();
 
                 this.Hide();
@@ -87,5 +76,87 @@ namespace ClientApp
                 action();
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Opacity += .03;
+            if (this.Opacity == 1)
+            {
+                timer.Stop();
+            }
+        }
+
+
+
+
+
+        private void Animation()
+        {
+            double maxheight = Height * 0.6328;
+            Timer timer = new Timer();
+            timer.Interval = 1;
+            timer.Start();
+            timer.Tick += new EventHandler((o, ev) =>
+            {
+                if (users.Visible)
+                {
+
+                    if (users.Height > maxheight)
+                    {
+                        Timer t = o as Timer; // можно тут просто воспользоваться timer
+                        t.Stop();
+                    }
+                    else users.Height += (int)(maxheight * 0.09);
+                }
+                else
+                {
+                    users.Height -= (int)(maxheight * 0.09);
+                    if (users.Height <= 0)
+                    {
+                        Timer t = o as Timer; // можно тут просто воспользоваться timer
+                        t.Stop();
+                    }
+                }
+            });
+        }
+
+
+        private void Chat_form_Shown(object sender, EventArgs e)
+        {
+            timer.Start();
+        }
+
+        
+        private void Top_Menu_Click(object sender, EventArgs e)
+        {
+            switch ((sender as ToolStripMenuItem).Name)
+            {
+                case "About":
+                    {
+                        AboutBox ab = new AboutBox();
+                        ab.Show();
+                        break;
+                    }
+                case "Isers_menu":
+                    {
+                        if (Width < 800)
+                        {
+                            users.Visible = !users.Visible;
+                            Animation();
+                        }
+                        break;
+                    }
+                case "СhangeUser":
+                    {
+                        this.Hide();
+                        Program.cf.Show();
+                        break;
+                    }
+                case "Exit":
+                    {
+                        Application.Exit();
+                        break;
+                    }
+            }
+        }
     }
 }

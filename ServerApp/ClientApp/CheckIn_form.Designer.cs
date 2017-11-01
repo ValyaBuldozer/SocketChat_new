@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckIn_form));
             this.login_label = new System.Windows.Forms.Label();
             this.password_label = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.close_button = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.password_maskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,6 +112,11 @@
             this.password_maskedTextBox.Size = new System.Drawing.Size(173, 23);
             this.password_maskedTextBox.TabIndex = 5;
             // 
+            // timer
+            // 
+            this.timer.Interval = 10;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // CheckIn_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,8 +133,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "CheckIn_form";
+            this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Check In";
+            this.Shown += new System.EventHandler(this.CheckIn_form_Shown);
             this.panel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -143,5 +152,6 @@
         private System.Windows.Forms.Button close_button;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.MaskedTextBox password_maskedTextBox;
+        private System.Windows.Forms.Timer timer;
     }
 }

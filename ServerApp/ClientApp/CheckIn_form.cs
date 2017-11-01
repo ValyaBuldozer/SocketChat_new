@@ -40,8 +40,11 @@ namespace ClientApp
         {
             if (!chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text))
                 return;
-            
+
+
             chat_Form.Show();
+
+
             this.Hide();
         }
 
@@ -50,5 +53,21 @@ namespace ClientApp
             this.Close();
         }
 
+
+
+
+        private void CheckIn_form_Shown(object sender, EventArgs e)
+        {
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Opacity += .03;
+            if (this.Opacity == 1)
+            {
+                timer.Stop();
+            }
+        }
     }
 }
