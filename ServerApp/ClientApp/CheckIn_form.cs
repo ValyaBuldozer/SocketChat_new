@@ -21,6 +21,8 @@ namespace ClientApp
 
         public CheckIn_form()
         {
+            testForm testForm = new testForm();
+            testForm.Show();
             InitializeComponent();
             chat_Form = new Chat_form();
             chat_Form.client.ServerErrorEvent += HandlerServerErrorEvent;
@@ -28,12 +30,11 @@ namespace ClientApp
 
         private void checkin_button_Click(object sender, EventArgs e)
         {
-            chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text);
-            //
-            //
+            if (!chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text))
+                return;
+            
+            chat_Form.Show();
             this.Hide();
-            Chat_form cf = new Chat_form();
-            cf.ShowDialog();
         }
 
         private void close_button_Click(object sender, EventArgs e)

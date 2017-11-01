@@ -49,7 +49,7 @@ namespace ClientApp
 
         public bool ConnectionFlag { get => _connectionFlag;  }
 
-        public void ConnectToServer(string username,string password)
+        public bool ConnectToServer(string username,string password)
         {
             try
             {
@@ -61,7 +61,8 @@ namespace ClientApp
 
                 sender.Connect(iPEndPoint);
 
-                while (!Werification(sender, username, password)) ;
+                if (!Werification(sender, username, password))
+                    return false;
 
                 socket = sender;
                 _connectionFlag = true;
@@ -69,11 +70,12 @@ namespace ClientApp
                 Thread listenThread = new Thread(new ParameterizedThreadStart(Listen));
                 listenThread.Start(this);
 
-                
+                return true;
             }
             catch (SocketException)
             {
                 ServerErrorEventRun(new ServerErrorEventInfo("no connection with server"));
+                return false;
             }
         }
 
@@ -113,7 +115,12 @@ namespace ClientApp
         {
             byte[] bytes = new byte[1024];
             int bytesRec = socket.Receive(bytes);
-            return Encoding.UTF8.GetString(bytes);
+            string message = Encoding.UTF8.GetString(bytes);
+
+            if (message.Contains("\0"))
+                message=message.Remove(message.IndexOf('\0'));
+
+            return message;
         }
 
         static public void Listen(object clientObject)
