@@ -14,6 +14,16 @@ namespace ClientApp
     {
         private void HandlerServerErrorEvent(object sender,ServerErrorEventInfo e)
         {
+            if (e.info == "Connection to server has been served")
+            {
+                Action action = () => this.Show();
+
+                if (InvokeRequired)
+                    Invoke(action);
+                else
+                    action();
+            }
+
             MessageBox.Show(e.info, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -21,11 +31,9 @@ namespace ClientApp
 
         public CheckIn_form()
         {
-            testForm testForm = new testForm();
-            testForm.Show();
             InitializeComponent();
             chat_Form = new Chat_form();
-            chat_Form.client.ServerErrorEvent += HandlerServerErrorEvent;
+            Client.ServerErrorEvent += HandlerServerErrorEvent;
         }
 
         private void checkin_button_Click(object sender, EventArgs e)

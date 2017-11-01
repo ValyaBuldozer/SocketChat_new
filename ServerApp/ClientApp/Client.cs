@@ -30,13 +30,13 @@ namespace ClientApp
 
     public class Client
     {
-        public event EventHandler<ServerErrorEventInfo> ServerErrorEvent;
+        public static event EventHandler<ServerErrorEventInfo> ServerErrorEvent;
         public event EventHandler<MessageEventInfo> MessageEvent;
 
-        public virtual void ServerErrorEventRun(ServerErrorEventInfo e)
+        public static void ServerErrorEventRun(ServerErrorEventInfo e)
         {
             EventHandler<ServerErrorEventInfo> handler = ServerErrorEvent;
-            handler(this, e);
+            handler(null, e);
         }
         public virtual void MessageEventRun(MessageEventInfo e)
         {
@@ -45,9 +45,17 @@ namespace ClientApp
         }
 
         private Socket socket;
-        private bool _connectionFlag=false;
+        private static bool _connectionFlag=false;
+        private string _username;
 
-        public bool ConnectionFlag { get => _connectionFlag;  }
+        public static bool ConnectionFlag { get => _connectionFlag;  }
+        public string Username { get => _username; }
+
+        public Client()
+        {
+            _username = null;
+            _connectionFlag = false;
+        }
 
         public bool ConnectToServer(string username,string password)
         {
@@ -66,6 +74,7 @@ namespace ClientApp
 
                 socket = sender;
                 _connectionFlag = true;
+                _username = username;
 
                 Thread listenThread = new Thread(new ParameterizedThreadStart(Listen));
                 listenThread.Start(this);
@@ -81,9 +90,8 @@ namespace ClientApp
 
         public bool Werification(Socket socket,string username,string password)
         {
-            Thread.Sleep(1000);
             socket.Send(Encoding.UTF8.GetBytes(username));
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             socket.Send(Encoding.UTF8.GetBytes(username));
 
             string answer = GetMessage(socket);
@@ -111,7 +119,7 @@ namespace ClientApp
             }
         }
 
-        public string GetMessage(Socket socket)
+        static public string GetMessage(Socket socket)
         {
             byte[] bytes = new byte[1024];
             int bytesRec = socket.Receive(bytes);
@@ -125,13 +133,34 @@ namespace ClientApp
 
         static public void Listen(object clientObject)
         {
-            while(true)
+            try
             {
-                byte[] bytes = new byte[1024];
-                int bytesRec = (clientObject as Client).socket.Receive(bytes);
-                (clientObject as Client).MessageEventRun(
-                    new MessageEventInfo(Encoding.UTF8.GetString(bytes)));
+                while (_connectionFlag)
+                {
+                    string message = GetMessage((clientObject as Client).socket);
+                    (clientObject as Client).MessageEventRun(new MessageEventInfo(message));
+                }
+                
+                (clientObject as Client).socket.Shutdown(SocketShutdown.Both);
+                (clientObject as Client).socket.Close();
             }
+            catch(SocketException)
+            {
+                ServerErrorEventRun(new ServerErrorEventInfo("Connection to server has been served"));
+            }
+            catch (ObjectDisposedException)
+            {
+                ServerErrorEventRun(new ServerErrorEventInfo("Unknown error"));
+            }
+        }
+
+        public void SendMessage(string message)
+        {
+            if (!_connectionFlag) return;
+            if (message == null || message == "") return;
+
+            socket.Send(Encoding.UTF8.GetBytes(message));
+
         }
     }
 }
