@@ -1,0 +1,45 @@
+﻿<Window x:Class="ClientApp_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientApp_wpf"
+        mc:Ignorable="d"
+        Title="MainWindow"  Height="200" Width="500">
+
+    <Grid >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="145"/>
+            <ColumnDefinition  />
+            <ColumnDefinition Width="50"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition />
+            
+        </Grid.RowDefinitions>
+
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="0" Grid.Row="0"></TabPanel>
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="0" Grid.Row="1"></TabPanel>
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="0" Grid.Row="2"></TabPanel>
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="3" Grid.Row="0"></TabPanel>
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="3" Grid.Row="1"></TabPanel>
+        <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="3" Grid.Row="2"></TabPanel>
+
+
+        <Button Content="CHECK IN" BorderBrush="#FFA7B8D1" Width="200" Height="50" Grid.Column="2" Grid.Row="3" FontFamily="Tahoma" FontWeight="Bold" FontSize="24" Cursor="Hand" Background="#FF5D96E8" Foreground="#FFF0F0F0" />
+
+
+
+        <Label  Content="LOGIN:" Width="135" Height="30" Grid.Column="1" Grid.Row="0" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalContentAlignment="Center"  />
+        <Label  Content="PSWRD:" Width="135" Height="30" Grid.Column="1" Grid.Row="1" FontFamily="Tahoma" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"  />
+
+
+        <TextBox   Width="250" Height="40" Grid.Column="2" Grid.Row="0" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
+        <TextBox   Width="250" Height="40" Grid.Column="2" Grid.Row="1" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
+    </Grid>
+</Window>
