@@ -36,11 +36,11 @@
             this.message_label = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.About = new System.Windows.Forms.ToolStripMenuItem();
+            this.Isers_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.СhangeUser = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.users = new System.Windows.Forms.ListBox();
-            this.Isers_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +114,15 @@
             this.About.Text = "О программе";
             this.About.Click += new System.EventHandler(this.Top_Menu_Click);
             // 
+            // Isers_menu
+            // 
+            this.Isers_menu.BackColor = System.Drawing.Color.OrangeRed;
+            this.Isers_menu.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Isers_menu.Name = "Isers_menu";
+            this.Isers_menu.Size = new System.Drawing.Size(131, 22);
+            this.Isers_menu.Text = "Пользователи";
+            this.Isers_menu.Click += new System.EventHandler(this.Top_Menu_Click);
+            // 
             // СhangeUser
             // 
             this.СhangeUser.BackColor = System.Drawing.Color.OrangeRed;
@@ -157,15 +166,6 @@
             this.users.Size = new System.Drawing.Size(569, 25);
             this.users.TabIndex = 25;
             this.users.Visible = false;
-            // 
-            // Isers_menu
-            // 
-            this.Isers_menu.BackColor = System.Drawing.Color.OrangeRed;
-            this.Isers_menu.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Isers_menu.Name = "Isers_menu";
-            this.Isers_menu.Size = new System.Drawing.Size(131, 22);
-            this.Isers_menu.Text = "Пользователи";
-            this.Isers_menu.Click += new System.EventHandler(this.Top_Menu_Click);
             // 
             // Chat_form
             // 

@@ -104,5 +104,17 @@
   <ItemGroup>
     <None Include="ICO.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\communication.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ICO.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

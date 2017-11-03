@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp_wpf"
         mc:Ignorable="d"
-        Title="Chat_form_wpf" Height="300" Width="300">
-    <Grid>
+        Title="Chat_form_wpf" Height="600" Width="600">
+    <Grid Background="#FFD5E1F3" >
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition  />
+
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+
+        </Grid.RowDefinitions>
+
+        <ToolBar VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+            <Button Content="О программе" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
+            <Button Content="Пользователи" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
+            <Button Content="Сменить пользователя" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
+            <Button Content="Выход" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
+
+        </ToolBar>
+
+        <RichTextBox Grid.Row="1"  Grid.Column="0" Height="395" Margin="20,10,20,135" IsEnabled="False" />
+        <TextBox Grid.Row="1"  Grid.Column="0" Height="75" Margin="130,424,110,41" />
+        <Label Grid.Row="1"  Grid.Column="0" Height="65" Margin="20,424,0,51" Content="MSG:" FontFamily="Tahoma" FontWeight="Bold" FontSize="36" HorizontalAlignment="Left" HorizontalContentAlignment="Center" />
+
+        <Button Grid.Row="1"  Grid.Column="0" Height="75" Width="75" Margin="497,424,20,41" Cursor="Hand"  >
+            <Button.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/enter.png"/>
+            </Button.Background>
+
+        </Button>
         
+        <ListBox Grid.Row="1"  Grid.Column="0"  Height="25" Margin="0,515,0,0" Visibility="Hidden" />
+
     </Grid>
 </Window>
