@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 
 
@@ -28,17 +29,67 @@ namespace ClientApp
         private void send_button_Click(object sender, EventArgs e)
         {
             client.SendMessage(sendMessage_textBox.Text);
+        }   
+
+        private void Chat_form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            Application.Exit();
         }
 
+        private void Chat_form_Shown(object sender, EventArgs e)
+        {
+            timer.Start();
+        }
         
+        private void Top_Menu_Click(object sender, EventArgs e)
+        {
+            switch ((sender as ToolStripMenuItem).Name)
+            {
+                case "About":
+                    {
+                        AboutBox ab = new AboutBox();
+                        ab.Show();
+                        break;
+                    }
+                case "Isers_menu":
+                    {
+                        if (Width < 800)
+                        {
+                            users.Visible = !users.Visible;
+                            Animation();
+                        }
+                        break;
+                    }
+                case "СhangeUser":
+                    {
+                        this.Hide();
+                        Program.cf.Show();
+                        break;
+                    }
+                case "Exit":
+                    {
+                        Application.Exit();
+                        break;
+                    }
+            }
+        }
 
-       
-
-        
-
-       
 
 
+        public static event EventHandler<ServerErrorEventInfo> ExitEvent;
+
+        public static void ExitEventRun(ServerErrorEventInfo e)
+        {
+            try
+            {
+                
+                EventHandler<ServerErrorEventInfo> handler = ExitEvent;
+                handler(null, e);
+            }
+            catch(ThreadAbortException)
+            { }
+        }
 
         private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
@@ -85,14 +136,10 @@ namespace ClientApp
             }
         }
 
-
-
-
-
         private void Animation()
         {
             double maxheight = Height * 0.6328;
-            Timer timer = new Timer();
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = 1;
             timer.Start();
             timer.Tick += new EventHandler((o, ev) =>
@@ -102,7 +149,7 @@ namespace ClientApp
 
                     if (users.Height > maxheight)
                     {
-                        Timer t = o as Timer; // можно тут просто воспользоваться timer
+                        System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
                         t.Stop();
                     }
                     else users.Height += (int)(maxheight * 0.09);
@@ -112,51 +159,12 @@ namespace ClientApp
                     users.Height -= (int)(maxheight * 0.09);
                     if (users.Height <= 0)
                     {
-                        Timer t = o as Timer; // можно тут просто воспользоваться timer
+                        System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
                         t.Stop();
                     }
                 }
             });
         }
 
-
-        private void Chat_form_Shown(object sender, EventArgs e)
-        {
-            timer.Start();
-        }
-
-        
-        private void Top_Menu_Click(object sender, EventArgs e)
-        {
-            switch ((sender as ToolStripMenuItem).Name)
-            {
-                case "About":
-                    {
-                        AboutBox ab = new AboutBox();
-                        ab.Show();
-                        break;
-                    }
-                case "Users_menu":
-                    {
-                        if (Width < 800)
-                        {
-                            users.Visible = !users.Visible;
-                            Animation();
-                        }
-                        break;
-                    }
-                case "СhangeUser":
-                    {
-                        this.Hide();
-                        Program.cf.Show();
-                        break;
-                    }
-                case "Exit":
-                    {
-                        Application.Exit();
-                        break;
-                    }
-            }
-        }
     }
 }

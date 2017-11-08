@@ -92,7 +92,7 @@ namespace ClientApp
         {
             socket.Send(Encoding.UTF8.GetBytes(username));
             Thread.Sleep(100);
-            socket.Send(Encoding.UTF8.GetBytes(username));
+            socket.Send(Encoding.UTF8.GetBytes(password));
 
             string answer = GetMessage(socket);
 
@@ -135,6 +135,8 @@ namespace ClientApp
         {
             try
             {
+                Chat_form.ExitEvent += ExitEventHandler;
+
                 while (_connectionFlag)
                 {
                     string message = GetMessage((clientObject as Client).socket);
@@ -161,6 +163,25 @@ namespace ClientApp
 
             socket.Send(Encoding.UTF8.GetBytes(message));
 
+        }
+
+        public static void ExitEventHandler(object handler,ServerErrorEventInfo e)
+        {
+            try
+            {
+                Action action = () =>
+                 {
+                     //socket.Shutdown(SocketShutdown.Both);
+                     //socket.Close();
+                     Thread.CurrentThread.Abort();
+                 };
+
+                action();
+            }
+            catch(ObjectDisposedException)
+            {
+                Thread.CurrentThread.Abort();
+            }
         }
     }
 }

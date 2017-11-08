@@ -98,6 +98,7 @@ namespace ServerApp
                         }
                 }
             }
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
         static void ReadUserPasDic()
