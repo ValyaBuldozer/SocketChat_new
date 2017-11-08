@@ -93,9 +93,9 @@ namespace ClientApp_wpf.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Icon ICO {
+        internal static System.Drawing.Icon ICO1 {
             get {
-                object obj = ResourceManager.GetObject("ICO", resourceCulture);
+                object obj = ResourceManager.GetObject("ICO1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace ClientApp_wpf.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Icon ICO1 {
+        internal static System.Drawing.Icon sico_new {
             get {
-                object obj = ResourceManager.GetObject("ICO1", resourceCulture);
+                object obj = ResourceManager.GetObject("sico_new", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

@@ -20,9 +20,21 @@ namespace ClientApp_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        Chat_form_wpf chat_form;
+        
         public MainWindow()
         {
             InitializeComponent();
+           
+        }
+
+        private void CheckIn_Click(object sender, RoutedEventArgs e)
+        {
+            //
+            chat_form = new Chat_form_wpf();
+            chat_form.Show();
+            this.Hide();
+            //
         }
     }
 }

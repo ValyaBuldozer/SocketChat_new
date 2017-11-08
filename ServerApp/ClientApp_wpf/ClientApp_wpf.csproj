@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\sico_new.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -115,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ICO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sico_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sico_new.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
