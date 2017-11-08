@@ -187,6 +187,7 @@
             this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Чат";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chat_form_FormClosing);
             this.Shown += new System.EventHandler(this.Chat_form_Shown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

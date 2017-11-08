@@ -12,20 +12,6 @@ namespace ClientApp
 {
     public partial class CheckIn_form : Form
     {
-        private void HandlerServerErrorEvent(object sender,ServerErrorEventInfo e)
-        {
-            if (e.info == "Connection to server has been served")
-            {
-                Action action = () => this.Show();
-
-                if (InvokeRequired)
-                    Invoke(action);
-                else
-                    action();
-            }
-
-            MessageBox.Show(e.info, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
 
         Chat_form chat_Form;
 
@@ -55,6 +41,21 @@ namespace ClientApp
 
 
 
+
+        private void HandlerServerErrorEvent(object sender,ServerErrorEventInfo e)
+        {
+            if (e.info == "Connection to server has been served")
+            {
+                Action action = () => this.Show();
+
+                if (InvokeRequired)
+                    Invoke(action);
+                else
+                    action();
+            }
+
+            MessageBox.Show(e.info, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
         private void CheckIn_form_Shown(object sender, EventArgs e)
         {
