@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp_wpf"
         mc:Ignorable="d"
-        Title="MainWindow"  Height="200" Width="500">
+        Title="Вход"  Height="200" Width="500"
+        WindowStartupLocation="CenterScreen"
+        >
 
     <Grid >
 
@@ -31,7 +33,7 @@
         <TabPanel Background="#FFA7B8D1" Opacity="0.4" Grid.Column="3" Grid.Row="2"></TabPanel>
 
 
-        <Button Name="CheckIn" Content="CHECK IN" BorderBrush="#FFA7B8D1" Width="200" Height="50" Grid.Column="2" Grid.Row="3" FontFamily="Tahoma" FontWeight="Bold" FontSize="24" Cursor="Hand" Background="#FF5D96E8" Foreground="#FFF0F0F0" Click="CheckIn_Click"  />
+        <Button Name="CheckIn" Content="CHECK IN" BorderBrush="White" Width="200" Height="50"  Grid.Column="2" Grid.Row="3" FontFamily="Tahoma" FontWeight="Bold" FontSize="24" Cursor="Hand" Background="#FF5D96E8" Foreground="#FFF0F0F0" Click="CheckIn_Click" BorderThickness="0"  />
 
 
 
@@ -39,7 +41,8 @@
         <Label  Content="PSWRD:" Width="135" Height="30" Grid.Column="1" Grid.Row="1" FontFamily="Tahoma" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"  />
 
 
-        <TextBox   Width="250" Height="40" Grid.Column="2" Grid.Row="0" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
-        <TextBox   Width="250" Height="40" Grid.Column="2" Grid.Row="1" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
+        <TextBox  Name="login" Width="250" Height="40" Grid.Column="2" Grid.Row="0" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
+        <TextBox  Name="password" Width="250" Height="40" Grid.Column="2" Grid.Row="1" FontFamily="Tahoma" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"  />
+        
     </Grid>
 </Window>

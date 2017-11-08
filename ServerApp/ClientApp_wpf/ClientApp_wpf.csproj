@@ -105,9 +105,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ICO.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\enter.png" />
   </ItemGroup>
   <ItemGroup>

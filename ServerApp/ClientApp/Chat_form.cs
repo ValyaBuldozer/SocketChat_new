@@ -136,7 +136,7 @@ namespace ClientApp
                         ab.Show();
                         break;
                     }
-                case "Isers_menu":
+                case "Users_menu":
                     {
                         if (Width < 800)
                         {

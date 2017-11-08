@@ -36,7 +36,7 @@
             this.message_label = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.About = new System.Windows.Forms.ToolStripMenuItem();
-            this.Isers_menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Users_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.СhangeUser = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -96,7 +96,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.About,
-            this.Isers_menu,
+            this.Users_menu,
             this.СhangeUser,
             this.Exit});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
@@ -114,14 +114,14 @@
             this.About.Text = "О программе";
             this.About.Click += new System.EventHandler(this.Top_Menu_Click);
             // 
-            // Isers_menu
+            // Users_menu
             // 
-            this.Isers_menu.BackColor = System.Drawing.Color.OrangeRed;
-            this.Isers_menu.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Isers_menu.Name = "Isers_menu";
-            this.Isers_menu.Size = new System.Drawing.Size(131, 22);
-            this.Isers_menu.Text = "Пользователи";
-            this.Isers_menu.Click += new System.EventHandler(this.Top_Menu_Click);
+            this.Users_menu.BackColor = System.Drawing.Color.OrangeRed;
+            this.Users_menu.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Users_menu.Name = "Users_menu";
+            this.Users_menu.Size = new System.Drawing.Size(131, 22);
+            this.Users_menu.Text = "Пользователи";
+            this.Users_menu.Click += new System.EventHandler(this.Top_Menu_Click);
             // 
             // СhangeUser
             // 
@@ -206,7 +206,7 @@
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.ToolStripMenuItem СhangeUser;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.ToolStripMenuItem Isers_menu;
+        private System.Windows.Forms.ToolStripMenuItem Users_menu;
         private System.Windows.Forms.ListBox users;
     }
 }

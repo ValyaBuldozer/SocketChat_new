@@ -5,42 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp_wpf"
         mc:Ignorable="d"
-        Title="Chat_form_wpf" Height="600" Width="600">
-    <Grid Background="#FFD5E1F3" >
+        Title="Чат" Height="498" Width="778.667"
+         WindowStartupLocation="CenterScreen"
+        >
+    <Grid Background="#FFD5E1F3" Margin="0,0,2,0" >
 
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition  />
+            <ColumnDefinition Width="196*"  />
+            <ColumnDefinition Width="434*"/>
+            <ColumnDefinition Width="149*"/>
+
 
 
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="375*" />
+            <RowDefinition Height="58*"/>
 
         </Grid.RowDefinitions>
 
-        <ToolBar VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
-            <Button Content="О программе" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
-            <Button Content="Пользователи" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
-            <Button Content="Сменить пользователя" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
-            <Button Content="Выход" FontWeight="Bold" FontFamily="Tahoma" FontSize="18"/>
+        <ToolBar  VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Height="35" Grid.ColumnSpan="3">
+            <Button Content=" О программе " FontWeight="Bold" FontFamily="Tahoma" FontSize="18" Cursor="Hand"/>
+
+            <Button Content=" Сменить пользователя " FontWeight="Bold" FontFamily="Tahoma" FontSize="18" Cursor="Hand"/>
+            <Button Content=" Выход " FontWeight="Bold" FontFamily="Tahoma" FontSize="18" Cursor="Hand" Click="Button_Click"/>
 
         </ToolBar>
 
-        <RichTextBox Grid.Row="1"  Grid.Column="0" Height="395" Margin="20,10,20,135" IsEnabled="False" />
-        <TextBox Grid.Row="1"  Grid.Column="0" Height="75" Margin="130,424,110,41" />
-        <Label Grid.Row="1"  Grid.Column="0" Height="65" Margin="20,424,0,51" Content="MSG:" FontFamily="Tahoma" FontWeight="Bold" FontSize="36" HorizontalAlignment="Left" HorizontalContentAlignment="Center" />
 
-        <Button Grid.Row="1"  Grid.Column="0" Height="75" Width="75" Margin="497,424,20,41" Cursor="Hand"  >
-            <Button.Background>
-                <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/enter.png"/>
-            </Button.Background>
+        <RichTextBox Grid.Row="1"  Grid.Column="1" Margin="13,20,20,7" IsEnabled="False" BorderThickness="0" Grid.ColumnSpan="2"   />
+        <TextBox Grid.Row="2"  Grid.Column="1" Margin="13,9,17,10" BorderThickness="0" />
+        <Label Grid.Row="2"  Grid.Column="0" Margin="69,3,0,-10" Content="MSG:" FontFamily="Tahoma" FontWeight="Bold" FontSize="36" HorizontalAlignment="Left" HorizontalContentAlignment="Center" RenderTransformOrigin="0.733,0.446" Width="105" />
 
+        <Button Margin="1,9,20,10" Grid.Row="2" BorderThickness="0" BorderBrush="White" Background="White" Cursor="Hand" Grid.Column="2">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="enter.png" Stretch="Uniform"/>
+                <TextBlock Text="SEND" FontFamily="Tahoma" FontSize="28" FontWeight="Bold"></TextBlock>
+            </StackPanel>
         </Button>
-        
-        <ListBox Grid.Row="1"  Grid.Column="0"  Height="25" Margin="0,515,0,0" Visibility="Hidden" />
+
+        <ListBox Name="users" Grid.Row="1"  Grid.Column="0" Margin="20,20,10,7" BorderBrush="White"  />
 
     </Grid>
 </Window>

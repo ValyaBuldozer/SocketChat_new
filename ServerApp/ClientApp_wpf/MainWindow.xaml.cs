@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace ClientApp_wpf
 {
@@ -21,20 +22,40 @@ namespace ClientApp_wpf
     public partial class MainWindow : Window
     {
         Chat_form_wpf chat_form;
-        
+
+        private void HandlerServerErrorEvent(object sender, ServerErrorEventInfo e)
+        {
+            if (e.info == "Connection to server has been served")
+            {
+                Action action = () => this.Show();
+
+                if (InvokeRequired)
+                    Invoke(action);
+                else
+                    action();
+            }
+
+            MessageBox.Show(e.info, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+       
         public MainWindow()
         {
             InitializeComponent();
-           
+            chat_form = new Chat_form_wpf();
+            Client.ServerErrorEvent += HandlerServerErrorEvent;
         }
 
         private void CheckIn_Click(object sender, RoutedEventArgs e)
         {
-            //
-            chat_form = new Chat_form_wpf();
+
+            if (!chat_form.client.ConnectToServer(login.Text, password.Text))
+                return;
+
+            
             chat_form.Show();
             this.Hide();
-            //
+            
         }
     }
 }
