@@ -52,15 +52,15 @@ namespace ClientApp
                         ab.Show();
                         break;
                     }
-                case "Isers_menu":
-                    {
-                        if (Width < 800)
-                        {
-                            users.Visible = !users.Visible;
-                            Animation();
-                        }
-                        break;
-                    }
+                //case "Users_menu":
+                //    {
+                //        if (Width < 800)
+                //        {
+                //            users.Visible = !users.Visible;
+                //            Animation();
+                //        }
+                //        break;
+                //    }
                 case "СhangeUser":
                     {
                         this.Hide();
