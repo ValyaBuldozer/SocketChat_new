@@ -22,10 +22,24 @@ namespace ClientApp_MF
             chat_Form = new Chat_form();
         }
 
-        private void enter_button_Click(object sender, EventArgs e)
+        private void checkin_button_Click(object sender, EventArgs e)
         {
             chat_Form.Show();
             this.Hide();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Opacity += .03;
+            if (this.Opacity == 1)
+            {
+                timer.Stop();
+            }
+        }
+
+        private void CheckIn_form_Shown(object sender, EventArgs e)
+        {
+            timer.Start();
         }
     }
 }

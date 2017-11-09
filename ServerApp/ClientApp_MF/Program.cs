@@ -8,6 +8,7 @@ namespace ClientApp_MF
 {
     static class Program
     {
+        public static CheckIn_form cf;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -16,7 +17,8 @@ namespace ClientApp_MF
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CheckIn_form());
+            cf = new CheckIn_form();
+            Application.Run(cf);
         }
     }
 }
