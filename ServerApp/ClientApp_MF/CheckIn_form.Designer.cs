@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckIn_form));
             this.login_button = new MetroFramework.Controls.MetroLabel();
-            this.login_textBox = new MetroFramework.Controls.MetroTextBox();
-            this.password_maskedTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.metroTextBox2 = new MetroFramework.Controls.MetroTextBox();
             this.password_button = new MetroFramework.Controls.MetroLabel();
-            this.checkin_button = new MetroFramework.Controls.MetroButton();
+            this.enter_button = new MetroFramework.Controls.MetroButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // login_button
@@ -48,19 +46,19 @@
             this.login_button.TabIndex = 0;
             this.login_button.Text = "LOGIN";
             // 
-            // login_textBox
+            // metroTextBox1
             // 
-            this.login_textBox.Location = new System.Drawing.Point(83, 102);
-            this.login_textBox.Name = "login_textBox";
-            this.login_textBox.Size = new System.Drawing.Size(164, 23);
-            this.login_textBox.TabIndex = 2;
+            this.metroTextBox1.Location = new System.Drawing.Point(83, 102);
+            this.metroTextBox1.Name = "metroTextBox1";
+            this.metroTextBox1.Size = new System.Drawing.Size(164, 23);
+            this.metroTextBox1.TabIndex = 2;
             // 
-            // password_maskedTextBox
+            // metroTextBox2
             // 
-            this.password_maskedTextBox.Location = new System.Drawing.Point(83, 131);
-            this.password_maskedTextBox.Name = "password_maskedTextBox";
-            this.password_maskedTextBox.Size = new System.Drawing.Size(164, 23);
-            this.password_maskedTextBox.TabIndex = 3;
+            this.metroTextBox2.Location = new System.Drawing.Point(83, 131);
+            this.metroTextBox2.Name = "metroTextBox2";
+            this.metroTextBox2.Size = new System.Drawing.Size(164, 23);
+            this.metroTextBox2.TabIndex = 3;
             // 
             // password_button
             // 
@@ -71,17 +69,17 @@
             this.password_button.TabIndex = 4;
             this.password_button.Text = "PSWRD";
             // 
-            // checkin_button
+            // enter_button
             // 
-            this.checkin_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.checkin_button.Location = new System.Drawing.Point(253, 102);
-            this.checkin_button.Name = "checkin_button";
-            this.checkin_button.Size = new System.Drawing.Size(53, 52);
-            this.checkin_button.Style = MetroFramework.MetroColorStyle.Blue;
-            this.checkin_button.TabIndex = 5;
-            this.checkin_button.Text = "ENTER";
-            this.checkin_button.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.checkin_button.Click += new System.EventHandler(this.checkin_button_Click);
+            this.enter_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.enter_button.Location = new System.Drawing.Point(253, 102);
+            this.enter_button.Name = "enter_button";
+            this.enter_button.Size = new System.Drawing.Size(53, 52);
+            this.enter_button.Style = MetroFramework.MetroColorStyle.Blue;
+            this.enter_button.TabIndex = 5;
+            this.enter_button.Text = "ENTER";
+            this.enter_button.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.enter_button.Click += new System.EventHandler(this.checkin_button_Click);
             // 
             // panel1
             // 
@@ -91,21 +89,15 @@
             this.panel1.Size = new System.Drawing.Size(328, 77);
             this.panel1.TabIndex = 6;
             // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 10;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // CheckIn_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 166);
-            this.Controls.Add(this.checkin_button);
+            this.Controls.Add(this.enter_button);
             this.Controls.Add(this.password_button);
-            this.Controls.Add(this.password_maskedTextBox);
-            this.Controls.Add(this.login_textBox);
+            this.Controls.Add(this.metroTextBox2);
+            this.Controls.Add(this.metroTextBox1);
             this.Controls.Add(this.login_button);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -114,7 +106,6 @@
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Blue;
             this.Text = "CHECK IN";
-            this.Shown += new System.EventHandler(this.CheckIn_form_Shown);
             this.ResumeLayout(false);
 
         }
@@ -122,12 +113,11 @@
         #endregion
 
         private MetroFramework.Controls.MetroLabel login_button;
-        private MetroFramework.Controls.MetroTextBox login_textBox;
-        private MetroFramework.Controls.MetroTextBox password_maskedTextBox;
+        private MetroFramework.Controls.MetroTextBox metroTextBox1;
+        private MetroFramework.Controls.MetroTextBox metroTextBox2;
         private MetroFramework.Controls.MetroLabel password_button;
-        private MetroFramework.Controls.MetroButton checkin_button;
+        private MetroFramework.Controls.MetroButton enter_button;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Timer timer;
     }
 }
 
