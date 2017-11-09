@@ -46,7 +46,7 @@
             // 
             // sendMessage_button
             // 
-            this.sendMessage_button.BackColor = System.Drawing.Color.OrangeRed;
+            this.sendMessage_button.BackColor = System.Drawing.Color.LightSkyBlue;
             this.sendMessage_button.BackgroundImage = global::ClientApp.Properties.Resources.enter;
             this.sendMessage_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.sendMessage_button.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -60,26 +60,26 @@
             // 
             // Chat_textBox
             // 
-            this.Chat_textBox.BackColor = System.Drawing.Color.Coral;
+            this.Chat_textBox.BackColor = System.Drawing.Color.AliceBlue;
             this.Chat_textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Chat_textBox.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Chat_textBox.Location = new System.Drawing.Point(12, 50);
+            this.Chat_textBox.Location = new System.Drawing.Point(148, 50);
             this.Chat_textBox.Multiline = true;
             this.Chat_textBox.Name = "Chat_textBox";
             this.Chat_textBox.ReadOnly = true;
             this.Chat_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Chat_textBox.Size = new System.Drawing.Size(539, 395);
+            this.Chat_textBox.Size = new System.Drawing.Size(403, 395);
             this.Chat_textBox.TabIndex = 1;
             // 
             // sendMessage_textBox
             // 
-            this.sendMessage_textBox.BackColor = System.Drawing.Color.SandyBrown;
+            this.sendMessage_textBox.BackColor = System.Drawing.Color.AliceBlue;
             this.sendMessage_textBox.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sendMessage_textBox.Location = new System.Drawing.Point(111, 458);
+            this.sendMessage_textBox.Location = new System.Drawing.Point(148, 458);
             this.sendMessage_textBox.Multiline = true;
             this.sendMessage_textBox.Name = "sendMessage_textBox";
             this.sendMessage_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.sendMessage_textBox.Size = new System.Drawing.Size(359, 75);
+            this.sendMessage_textBox.Size = new System.Drawing.Size(322, 75);
             this.sendMessage_textBox.TabIndex = 2;
             // 
             // message_label
@@ -107,7 +107,7 @@
             // 
             // About
             // 
-            this.About.BackColor = System.Drawing.Color.OrangeRed;
+            this.About.BackColor = System.Drawing.Color.LightSkyBlue;
             this.About.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(119, 22);
@@ -116,7 +116,7 @@
             // 
             // Users_menu
             // 
-            this.Users_menu.BackColor = System.Drawing.Color.OrangeRed;
+            this.Users_menu.BackColor = System.Drawing.Color.LightSkyBlue;
             this.Users_menu.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Users_menu.Name = "Users_menu";
             this.Users_menu.Size = new System.Drawing.Size(131, 22);
@@ -125,7 +125,7 @@
             // 
             // СhangeUser
             // 
-            this.СhangeUser.BackColor = System.Drawing.Color.OrangeRed;
+            this.СhangeUser.BackColor = System.Drawing.Color.LightSkyBlue;
             this.СhangeUser.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.СhangeUser.ForeColor = System.Drawing.Color.Black;
             this.СhangeUser.Name = "СhangeUser";
@@ -135,7 +135,7 @@
             // 
             // Exit
             // 
-            this.Exit.BackColor = System.Drawing.Color.OrangeRed;
+            this.Exit.BackColor = System.Drawing.Color.LightSkyBlue;
             this.Exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Exit.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -154,16 +154,15 @@
             this.users.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.users.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.users.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.users.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.users.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.users.ForeColor = System.Drawing.Color.Gray;
             this.users.FormattingEnabled = true;
             this.users.IntegralHeight = false;
             this.users.ItemHeight = 25;
-            this.users.Location = new System.Drawing.Point(0, 522);
+            this.users.Location = new System.Drawing.Point(9, 50);
             this.users.Margin = new System.Windows.Forms.Padding(0);
             this.users.Name = "users";
-            this.users.Size = new System.Drawing.Size(569, 25);
+            this.users.Size = new System.Drawing.Size(124, 395);
             this.users.TabIndex = 25;
             this.users.Visible = false;
             // 
@@ -171,7 +170,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BackColor = System.Drawing.Color.Snow;
             this.ClientSize = new System.Drawing.Size(569, 547);
             this.Controls.Add(this.users);
             this.Controls.Add(this.sendMessage_textBox);

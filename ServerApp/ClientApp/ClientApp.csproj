@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ICO.ico</ApplicationIcon>
+    <ApplicationIcon>sico_new.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Chat.ico" />
+    <Content Include="sico_new.ico" />
     <None Include="Resources\communication.jpg" />
     <None Include="Resources\ICO.ico" />
     <Content Include="ICO.ico" />

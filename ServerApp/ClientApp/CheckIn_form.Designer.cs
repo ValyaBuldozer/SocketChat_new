@@ -94,7 +94,7 @@
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.Color.DarkGray;
+            this.panel.BackColor = System.Drawing.Color.LightSkyBlue;
             this.panel.Controls.Add(this.close_button);
             this.panel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel.Location = new System.Drawing.Point(318, 0);
@@ -121,7 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Coral;
+            this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(351, 150);
             this.Controls.Add(this.password_maskedTextBox);
             this.Controls.Add(this.checkin_button);
