@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.send_button = new MetroFramework.Controls.MetroButton();
-            this.message_label = new MetroFramework.Controls.MetroLabel();
             this.chat_textbox = new MetroFramework.Controls.MetroTextBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.about = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,32 +36,16 @@
             this.exit = new System.Windows.Forms.ToolStripMenuItem();
             this.sendMessage = new MetroFramework.Controls.MetroTextBox();
             this.users_box = new MetroFramework.Controls.MetroTextBox();
+            this.send_button = new MetroFramework.Controls.MetroButton();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // send_button
-            // 
-            this.send_button.Location = new System.Drawing.Point(374, 418);
-            this.send_button.Name = "send_button";
-            this.send_button.Size = new System.Drawing.Size(75, 25);
-            this.send_button.TabIndex = 0;
-            this.send_button.Text = "SEND";
-            // 
-            // message_label
-            // 
-            this.message_label.AutoSize = true;
-            this.message_label.Location = new System.Drawing.Point(23, 418);
-            this.message_label.Name = "message_label";
-            this.message_label.Size = new System.Drawing.Size(70, 19);
-            this.message_label.TabIndex = 1;
-            this.message_label.Text = "MESSAGE:";
-            // 
             // chat_textbox
             // 
-            this.chat_textbox.Location = new System.Drawing.Point(166, 103);
+            this.chat_textbox.Location = new System.Drawing.Point(159, 103);
             this.chat_textbox.Multiline = true;
             this.chat_textbox.Name = "chat_textbox";
-            this.chat_textbox.Size = new System.Drawing.Size(283, 299);
+            this.chat_textbox.Size = new System.Drawing.Size(290, 299);
             this.chat_textbox.TabIndex = 2;
             // 
             // menuStrip
@@ -104,10 +86,10 @@
             // 
             // sendMessage
             // 
-            this.sendMessage.Location = new System.Drawing.Point(99, 418);
+            this.sendMessage.Location = new System.Drawing.Point(23, 400);
             this.sendMessage.Multiline = true;
             this.sendMessage.Name = "sendMessage";
-            this.sendMessage.Size = new System.Drawing.Size(257, 23);
+            this.sendMessage.Size = new System.Drawing.Size(386, 39);
             this.sendMessage.TabIndex = 1;
             // 
             // users_box
@@ -115,20 +97,29 @@
             this.users_box.Location = new System.Drawing.Point(23, 103);
             this.users_box.Multiline = true;
             this.users_box.Name = "users_box";
-            this.users_box.Size = new System.Drawing.Size(126, 299);
+            this.users_box.Size = new System.Drawing.Size(137, 299);
             this.users_box.TabIndex = 5;
+            // 
+            // send_button
+            // 
+            this.send_button.Location = new System.Drawing.Point(407, 400);
+            this.send_button.Name = "send_button";
+            this.send_button.Size = new System.Drawing.Size(42, 39);
+            this.send_button.Style = MetroFramework.MetroColorStyle.White;
+            this.send_button.TabIndex = 0;
+            this.send_button.Text = "SEND";
+            this.send_button.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // Chat_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 461);
-            this.Controls.Add(this.users_box);
+            this.Controls.Add(this.send_button);
             this.Controls.Add(this.sendMessage);
             this.Controls.Add(this.chat_textbox);
-            this.Controls.Add(this.message_label);
-            this.Controls.Add(this.send_button);
             this.Controls.Add(this.menuStrip);
+            this.Controls.Add(this.users_box);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Chat_form";
             this.Resizable = false;
@@ -141,9 +132,6 @@
         }
 
         #endregion
-
-        private MetroFramework.Controls.MetroButton send_button;
-        private MetroFramework.Controls.MetroLabel message_label;
         private MetroFramework.Controls.MetroTextBox chat_textbox;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem about;
@@ -152,5 +140,6 @@
         private System.Windows.Forms.ToolStripMenuItem exit;
         private MetroFramework.Controls.MetroTextBox sendMessage;
         private MetroFramework.Controls.MetroTextBox users_box;
+        private MetroFramework.Controls.MetroButton send_button;
     }
 }

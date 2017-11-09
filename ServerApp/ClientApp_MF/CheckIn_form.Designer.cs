@@ -79,7 +79,7 @@
             this.enter_button.TabIndex = 5;
             this.enter_button.Text = "ENTER";
             this.enter_button.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.enter_button.Click += new System.EventHandler(this.enter_button_Click);
+            this.enter_button.Click += new System.EventHandler(this.checkin_button_Click);
             // 
             // panel1
             // 

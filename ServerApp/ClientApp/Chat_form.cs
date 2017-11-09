@@ -75,22 +75,6 @@ namespace ClientApp
             }
         }
 
-
-
-        public static event EventHandler<ServerErrorEventInfo> ExitEvent;
-
-        public static void ExitEventRun(ServerErrorEventInfo e)
-        {
-            try
-            {
-                
-                EventHandler<ServerErrorEventInfo> handler = ExitEvent;
-                handler(null, e);
-            }
-            catch(ThreadAbortException)
-            { }
-        }
-
         private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
             //я не понимаю что это но оно работает

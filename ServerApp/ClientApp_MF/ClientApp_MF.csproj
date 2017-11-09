@@ -70,6 +70,7 @@
     <Compile Include="CheckIn_form.Designer.cs">
       <DependentUpon>CheckIn_form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Chat_form.resx">
@@ -113,6 +114,8 @@
     <None Include="Resources\Chat.ico" />
     <None Include="Resources\sico_new.ico" />
     <None Include="Resources\ICO.ico" />
+    <Content Include="Resources\send.png" />
+    <Content Include="Resources\send_40px.png" />
     <Content Include="sico_new.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
