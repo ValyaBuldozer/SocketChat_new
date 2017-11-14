@@ -135,7 +135,7 @@ namespace ClientApp
         {
             try
             {
-                Chat_form.ExitEvent += ExitEventHandler;
+                //Chat_form.ExitEvent += ExitEventHandler;
 
                 while (_connectionFlag)
                 {

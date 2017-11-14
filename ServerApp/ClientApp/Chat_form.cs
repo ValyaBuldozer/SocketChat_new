@@ -78,7 +78,28 @@ namespace ClientApp
         private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
             //я не понимаю что это но оно работает
-            Action action = () => this.Chat_textBox.Text += e.message + Environment.NewLine;
+            Action action = () =>
+            {
+                if (e.message.Contains('<') && e.message.Contains('>'))
+                    switch (e.message.Substring(e.message.IndexOf('<'), e.message.IndexOf('>')))
+                    {
+                        case "<users_list>":
+                            {
+                                string[] users = e.message.Substring(e.message.IndexOf('>') + 1).Split(new char[1] { ';' });
+
+                                foreach (string user in users)
+                                    users_ListBox.Items.Add(user);
+                                break;
+                            }
+                        case "<disc>":
+                            {
+
+                                break;
+                            }
+                    }
+                else
+                    Chat_textBox.Text += e.message + Environment.NewLine;
+            };
 
             if (InvokeRequired)
                 Invoke(action);
@@ -97,7 +118,7 @@ namespace ClientApp
                 sendMessage_textBox.Clear();
                 Chat_textBox.Clear();
                 //
-                users.Items.Clear();
+                users_ListBox.Items.Clear();
                 //
                 client = new Client();
 
@@ -128,20 +149,20 @@ namespace ClientApp
             timer.Start();
             timer.Tick += new EventHandler((o, ev) =>
             {
-                if (users.Visible)
+                if (users_ListBox.Visible)
                 {
 
-                    if (users.Height > maxheight)
+                    if (users_ListBox.Height > maxheight)
                     {
                         System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
                         t.Stop();
                     }
-                    else users.Height += (int)(maxheight * 0.09);
+                    else users_ListBox.Height += (int)(maxheight * 0.09);
                 }
                 else
                 {
-                    users.Height -= (int)(maxheight * 0.09);
-                    if (users.Height <= 0)
+                    users_ListBox.Height -= (int)(maxheight * 0.09);
+                    if (users_ListBox.Height <= 0)
                     {
                         System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
                         t.Stop();

@@ -53,6 +53,10 @@ namespace ServerApp
             Socket sListener 
                 = new Socket(iPAdr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
+            //Устраняем последствия неправильного закрытия сервера
+            foreach (KeyValuePair<string, ClientInfo> client in usernamePasswaordDic)
+                client.Value.IsOnline = false;
+
             try
             {
                 sListener.Bind(iPEndPoint);
@@ -69,6 +73,20 @@ namespace ServerApp
         }
 
         /// <summary>
+        /// Завершение работы сервера и закрытие потока
+        /// </summary>
+        public static void End()
+        {
+            foreach(Socket socket in socketList)
+            {
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+
+            //Thread.CurrentThread.Abort();
+        }
+
+        /// <summary>
         /// Метод для потока клиента
         /// </summary>
         /// <param name="handler">Сокет клиента</param>
@@ -81,6 +99,7 @@ namespace ServerApp
             try
             {
                 username = GetNamePassword((handler as Socket));
+                SendUserList(handler as Socket);
 
                 while (true)
                 {
@@ -171,16 +190,34 @@ namespace ServerApp
         }
 
         /// <summary>
+        /// Послать сокету список пользователей онлайн
+        /// </summary>
+        /// <param name="socket">Сокет клиента</param>
+        static public void SendUserList(Socket socket)
+        {
+            string userList = "<users_list>";
+
+            foreach (KeyValuePair<string, ClientInfo> client in UsernamePasswaordDic)
+                if (client.Value.IsOnline)
+                    userList += client.Key + ";";
+
+            socket.Send(Encoding.UTF8.GetBytes(userList));
+        }
+
+        /// <summary>
         /// Закрыть обмен данными с клиентом и завершить текущий поток
         /// </summary>
         /// <param name="socket">Сокет клиента</param>
         /// <param name="username">Имя клиента</param>
         public static void CloseSocket(Socket socket,string username)
         {
-            if (usernamePasswaordDic.ContainsKey(username))
-                usernamePasswaordDic[username].IsOnline = false;
-
             socketList.Remove(socket);
+
+            if (usernamePasswaordDic.ContainsKey(username))
+            {
+                usernamePasswaordDic[username].IsOnline = false;
+                SendMessageToSockets("<disc>" + username);
+            }
 
             try
             {
@@ -194,18 +231,5 @@ namespace ServerApp
             }
         }
 
-        /// <summary>
-        /// Завершение работы сервера и закрытие потока
-        /// </summary>
-        public static void End()
-        {
-            foreach(Socket socket in socketList)
-            {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-            }
-
-            //Thread.CurrentThread.Abort();
-        }
     }
 }

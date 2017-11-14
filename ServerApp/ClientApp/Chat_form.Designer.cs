@@ -40,7 +40,7 @@
             this.СhangeUser = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.users = new System.Windows.Forms.ListBox();
+            this.users_ListBox = new System.Windows.Forms.ListBox();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,22 +149,22 @@
             this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // users
+            // users_ListBox
             // 
-            this.users.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.users.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.users.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.users.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.users.ForeColor = System.Drawing.Color.Gray;
-            this.users.FormattingEnabled = true;
-            this.users.IntegralHeight = false;
-            this.users.ItemHeight = 25;
-            this.users.Location = new System.Drawing.Point(9, 50);
-            this.users.Margin = new System.Windows.Forms.Padding(0);
-            this.users.Name = "users";
-            this.users.Size = new System.Drawing.Size(124, 395);
-            this.users.TabIndex = 25;
-            this.users.Visible = false;
+            this.users_ListBox.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.users_ListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.users_ListBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.users_ListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.users_ListBox.ForeColor = System.Drawing.Color.Gray;
+            this.users_ListBox.FormattingEnabled = true;
+            this.users_ListBox.IntegralHeight = false;
+            this.users_ListBox.ItemHeight = 25;
+            this.users_ListBox.Location = new System.Drawing.Point(9, 50);
+            this.users_ListBox.Margin = new System.Windows.Forms.Padding(0);
+            this.users_ListBox.Name = "users_ListBox";
+            this.users_ListBox.Size = new System.Drawing.Size(123, 395);
+            this.users_ListBox.TabIndex = 25;
+            this.users_ListBox.Visible = false;
             // 
             // Chat_form
             // 
@@ -172,7 +172,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
             this.ClientSize = new System.Drawing.Size(569, 547);
-            this.Controls.Add(this.users);
+            this.Controls.Add(this.users_ListBox);
             this.Controls.Add(this.sendMessage_textBox);
             this.Controls.Add(this.Chat_textBox);
             this.Controls.Add(this.sendMessage_button);
@@ -207,7 +207,7 @@
         private System.Windows.Forms.ToolStripMenuItem СhangeUser;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripMenuItem Users_menu;
-        private System.Windows.Forms.ListBox users;
+        private System.Windows.Forms.ListBox users_ListBox;
     }
 }
 
