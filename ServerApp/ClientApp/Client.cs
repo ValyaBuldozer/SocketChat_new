@@ -20,12 +20,12 @@ namespace ClientApp
 
     public class MessageEventInfo : EventArgs
     {
-        public MessageEventInfo(string message)
+        public MessageEventInfo(Message message)
         {
             this.message = message;
         }
 
-        public string message;
+        public Message message;
     }
 
     public class Client
@@ -90,26 +90,23 @@ namespace ClientApp
 
         public bool Werification(Socket socket,string username,string password)
         {
-            socket.Send(Encoding.UTF8.GetBytes(username));
-            Thread.Sleep(100);
-            socket.Send(Encoding.UTF8.GetBytes(password));
+            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,username,password).Serialize()));
 
-            string answer = GetMessage(socket);
+            Message answer = GetMessage(socket);
 
-            switch (answer)
-            {
-                case "<success>":
-                    return true;
+            if ( answer.GetMessage == "success" ) return true;
 
-                case "<name_not_found>":
+            switch (answer.GetMessage)
+            { 
+                case "name_not_found":
                     ServerErrorEventRun(new ServerErrorEventInfo("User is not regitred"));
                     return false;
 
-                case "<invalid_password>":
+                case "invalid_password":
                     ServerErrorEventRun(new ServerErrorEventInfo("Invalid password"));
                     return false;
 
-                case "<err_useronline>":
+                case "err_useronline":
                     ServerErrorEventRun(new ServerErrorEventInfo("User is online"));
                     return false;
 
@@ -119,16 +116,18 @@ namespace ClientApp
             }
         }
 
-        static public string GetMessage(Socket socket)
+        static public Message GetMessage(Socket socket)
         {
             byte[] bytes = new byte[1024];
-            int bytesRec = socket.Receive(bytes);
-            string message = Encoding.UTF8.GetString(bytes);
+            int byteRec = socket.Receive(bytes);
 
-            if (message.Contains("\0"))
-                message=message.Remove(message.IndexOf('\0'));
+            string data = Encoding.UTF8.GetString(bytes, 0, byteRec);
 
-            return message;
+            if (data.Contains("\0"))
+                data = data.Remove(data.IndexOf('\0'));
+
+            Message ret = new Message(MessageType.Message);
+            return ret.Deserialize(data);
         }
 
         static public void Listen(object clientObject)
@@ -139,7 +138,8 @@ namespace ClientApp
 
                 while (_connectionFlag)
                 {
-                    string message = GetMessage((clientObject as Client).socket);
+                    Message message = GetMessage((clientObject as Client).socket);
+
                     (clientObject as Client).MessageEventRun(new MessageEventInfo(message));
                 }
                 
@@ -161,7 +161,7 @@ namespace ClientApp
             if (!_connectionFlag) return;
             if (message == null || message == "") return;
 
-            socket.Send(Encoding.UTF8.GetBytes(message));
+            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,_username,message).Serialize()));
 
         }
 
@@ -173,6 +173,7 @@ namespace ClientApp
                  {
                      //socket.Shutdown(SocketShutdown.Both);
                      //socket.Close();
+                     
                      Thread.CurrentThread.Abort();
                  };
 

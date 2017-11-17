@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace ServerApp
 {
+    
     /// <summary>
     /// Информация о клиенте
     /// </summary>
@@ -99,12 +100,13 @@ namespace ServerApp
             try
             {
                 username = GetNamePassword((handler as Socket));
+                Thread.Sleep(200);
                 SendUserList(handler as Socket);
 
                 while (true)
                 {
-                    string msg = username + ": " + GetMessage((handler as Socket));
-                    if (msg.Contains("<end>")) break;
+                    Message msg = GetMessage((handler as Socket));
+                    if (msg.MessageType == MessageType.UserDisconnect) break;
                     SendMessageToSockets(msg);
                 }
 
@@ -122,27 +124,29 @@ namespace ServerApp
         /// </summary>
         /// <param name="socket">Cокет</param>
         /// <returns>Сообщение</returns>
-        static public string GetMessage(Socket socket)
+        static public Message GetMessage(Socket socket)
         {
-            string data = null;
             byte[] bytes = new byte[1024];
             int byteRec = socket.Receive(bytes);
 
-            data += Encoding.UTF8.GetString(bytes, 0, byteRec);
+            string data = Encoding.UTF8.GetString(bytes, 0, byteRec);
 
-            return data;
+            if (data.Contains("\0"))
+                data = data.Remove(data.IndexOf('\0'));
 
+            Message ret = new Message(MessageType.Message);
+            return ret.Deserialize(data);
         }
 
         /// <summary>
         /// Посылает сообщение всем клиентам в сети
         /// </summary>
         /// <param name="message"></param>
-        static public void SendMessageToSockets(string message)
+        static public void SendMessageToSockets(Message message)
         {
             foreach(Socket socket in socketList)
             {
-                socket.Send(Encoding.UTF8.GetBytes(message));
+                socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
             }
         }
 
@@ -158,8 +162,9 @@ namespace ServerApp
 
             while (flag)
             {
-                username = GetMessage(socket);
-                string password = GetMessage(socket);
+                Message usernamePassword = GetMessage(socket);
+                username = usernamePassword.Username;
+                string password = usernamePassword.GetMessage;
 
                 try
                 {
@@ -167,23 +172,28 @@ namespace ServerApp
                     {
                         if (usernamePasswaordDic[username].IsOnline)
                         {
-                            socket.Send(Encoding.UTF8.GetBytes("<err_useronline>"));
+                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "err_useronline")
+                                .Serialize()));
                         }
                         else
                         {
-                            socket.Send(Encoding.UTF8.GetBytes("<success>"));
+                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,"server", "success")
+                                .Serialize()));
+                            SendMessageToSockets(new Message(MessageType.UserConnect, username));
                             socketList.Add(socket);
                             usernamePasswaordDic[username].IsOnline = true;
                             flag = false;
                         }
                     }
                     else
-                        socket.Send(Encoding.UTF8.GetBytes("<invalid_password>"));
+                        socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "invalid_password")
+                            .Serialize()));
                 }
                 catch(KeyNotFoundException ex)
                 {
                     flag = true;
-                    socket.Send(Encoding.UTF8.GetBytes("<name_not_found>"));
+                    socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "name_not_found")
+                        .Serialize()));
                 }
             }
             return username;
@@ -195,13 +205,13 @@ namespace ServerApp
         /// <param name="socket">Сокет клиента</param>
         static public void SendUserList(Socket socket)
         {
-            string userList = "<users_list>";
+            string userList = "";
 
             foreach (KeyValuePair<string, ClientInfo> client in UsernamePasswaordDic)
                 if (client.Value.IsOnline)
                     userList += client.Key + ";";
 
-            socket.Send(Encoding.UTF8.GetBytes(userList));
+            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.UserList,"server",userList).Serialize()));
         }
 
         /// <summary>
@@ -216,7 +226,7 @@ namespace ServerApp
             if (usernamePasswaordDic.ContainsKey(username))
             {
                 usernamePasswaordDic[username].IsOnline = false;
-                SendMessageToSockets("<disc>" + username);
+                SendMessageToSockets(new Message(MessageType.UserDisconnect,username));
             }
 
             try

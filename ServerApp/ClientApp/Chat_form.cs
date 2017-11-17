@@ -19,7 +19,7 @@ namespace ClientApp
 
         public Chat_form()
         {
-            ;
+            
             InitializeComponent();
 
             client.MessageEvent += MessageEvevntHandler;
@@ -80,25 +80,38 @@ namespace ClientApp
             //я не понимаю что это но оно работает
             Action action = () =>
             {
-                if (e.message.Contains('<') && e.message.Contains('>'))
-                    switch (e.message.Substring(e.message.IndexOf('<'), e.message.IndexOf('>')))
-                    {
-                        case "<users_list>":
-                            {
-                                string[] users = e.message.Substring(e.message.IndexOf('>') + 1).Split(new char[1] { ';' });
+                switch (e.message.MessageType)
+                {
+                    case MessageType.Message:
+                        {
+                            Chat_textBox.Text += e.message.Username + ": " + e.message.GetMessage + Environment.NewLine;
+                            break;
+                        }
+                    case MessageType.UserList:
+                        {
+                            string[] users = e.message.GetMessage.Split(new char[1] { ';' });
 
-                                foreach (string user in users)
-                                    users_ListBox.Items.Add(user);
-                                break;
-                            }
-                        case "<disc>":
-                            {
+                            foreach (string user in users)
+                                users_ListBox.Items.Add(user);
 
-                                break;
-                            }
-                    }
-                else
-                    Chat_textBox.Text += e.message + Environment.NewLine;
+                            break;
+                        }
+                    case MessageType.UserConnect:
+                        {
+                            users_ListBox.Items.Add(e.message.Username);
+                            break;
+                        }
+                    case MessageType.UserDisconnect:
+                        {
+                            users_ListBox.Items.Remove(e.message.Username);
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                 
             };
 
             if (InvokeRequired)
