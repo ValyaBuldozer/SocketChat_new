@@ -6,7 +6,7 @@ namespace ClientApp
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum MessageType
-    { UserDisconnect, UserConnect, UserList, Message, Error }
+    { Message, UserConnect, UserList, UserDisconnect, Error }
 
     public class Message
     {
@@ -20,7 +20,7 @@ namespace ClientApp
 
         public Message(MessageType messageType, string username = "", string message = "")
         {
-            _messageType = MessageType;
+            _messageType = messageType;
             _message = message;
             _username = username;
         }
