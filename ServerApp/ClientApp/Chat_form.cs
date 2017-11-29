@@ -80,11 +80,11 @@ namespace ClientApp
             //я не понимаю что это но оно работает
             Action action = () =>
             {
-                switch (e.message.MessageType)
+                switch (e.message.GetMessageType)
                 {
                     case MessageType.Message:
                         {
-                            Chat_textBox.Text += e.message.Username + ": " + e.message.GetMessage + Environment.NewLine;
+                            Chat_textBox.Text += e.message.GetUsername + ": " + e.message.GetMessage + Environment.NewLine;
                             break;
                         }
                     case MessageType.UserList:
@@ -98,12 +98,12 @@ namespace ClientApp
                         }
                     case MessageType.UserConnect:
                         {
-                            users_ListBox.Items.Add(e.message.Username);
+                            users_ListBox.Items.Add(e.message.GetUsername);
                             break;
                         }
                     case MessageType.UserDisconnect:
                         {
-                            users_ListBox.Items.Remove(e.message.Username);
+                            users_ListBox.Items.Remove(e.message.GetUsername);
                             break;
                         }
                     default:

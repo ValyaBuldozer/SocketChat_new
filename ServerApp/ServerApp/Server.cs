@@ -106,7 +106,7 @@ namespace ServerApp
                 while (true)
                 {
                     Message msg = GetMessage((handler as Socket));
-                    if (msg.MessageType == MessageType.UserDisconnect) break;
+                    if (msg.GetMessageType == MessageType.UserDisconnect) break;
                     SendMessageToSockets(msg);
                 }
 
@@ -163,7 +163,7 @@ namespace ServerApp
             while (flag)
             {
                 Message usernamePassword = GetMessage(socket);
-                username = usernamePassword.Username;
+                username = usernamePassword.GetUsername;
                 string password = usernamePassword.GetMessage;
 
                 try
