@@ -111,6 +111,8 @@ namespace ServerApp
                 JsonConvert.DeserializeObject<Dictionary<string, ClientInfo>>(reader.ReadToEnd());
 
             reader.Close();
+
+
         }
 
         static void WriteUserPasDic() => File.WriteAllText("NamePassswordDic.txt",
