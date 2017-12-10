@@ -74,20 +74,6 @@ namespace ServerApp
         }
 
         /// <summary>
-        /// Завершение работы сервера и закрытие потока
-        /// </summary>
-        public static void End()
-        {
-            foreach(Socket socket in socketList)
-            {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-            }
-
-            //Thread.CurrentThread.Abort();
-        }
-
-        /// <summary>
         /// Метод для потока клиента
         /// </summary>
         /// <param name="handler">Сокет клиента</param>
@@ -100,7 +86,7 @@ namespace ServerApp
             try
             {
                 username = GetNamePassword((handler as Socket));
-                Thread.Sleep(200);
+                Thread.Sleep(200);          //грязный хак, надо убрать
                 SendUserList(handler as Socket);
 
                 while (true)
@@ -117,37 +103,6 @@ namespace ServerApp
             }
 
             CloseSocket((handler as Socket), username);
-        }
-
-        /// <summary>
-        /// Получить сообщение от сокета клиента
-        /// </summary>
-        /// <param name="socket">Cокет</param>
-        /// <returns>Сообщение</returns>
-        static public Message GetMessage(Socket socket)
-        {
-            byte[] bytes = new byte[1024];
-            int byteRec = socket.Receive(bytes);
-
-            string data = Encoding.UTF8.GetString(bytes, 0, byteRec);
-
-            if (data.Contains("\0"))
-                data = data.Remove(data.IndexOf('\0'));
-
-            Message ret = new Message(MessageType.Message);
-            return ret.Deserialize(data);
-        }
-
-        /// <summary>
-        /// Посылает сообщение всем клиентам в сети
-        /// </summary>
-        /// <param name="message"></param>
-        static public void SendMessageToSockets(Message message)
-        {
-            foreach(Socket socket in socketList)
-            {
-                socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
-            }
         }
 
         /// <summary>
@@ -215,6 +170,37 @@ namespace ServerApp
         }
 
         /// <summary>
+        /// Получить сообщение от сокета клиента
+        /// </summary>
+        /// <param name="socket">Cокет</param>
+        /// <returns>Сообщение</returns>
+        static public Message GetMessage(Socket socket)
+        {
+            byte[] bytes = new byte[1024];
+            int byteRec = socket.Receive(bytes);
+
+            string data = Encoding.UTF8.GetString(bytes, 0, byteRec);
+
+            if (data.Contains("\0"))
+                data = data.Remove(data.IndexOf('\0'));
+
+            Message ret = new Message(MessageType.Message);
+            return ret.Deserialize(data);
+        }
+
+        /// <summary>
+        /// Посылает сообщение всем клиентам в сети
+        /// </summary>
+        /// <param name="message"></param>
+        static public void SendMessageToSockets(Message message)
+        {
+            foreach(Socket socket in socketList)
+            {
+                socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
+            }
+        }
+
+        /// <summary>
         /// Закрыть обмен данными с клиентом и завершить текущий поток
         /// </summary>
         /// <param name="socket">Сокет клиента</param>
@@ -239,6 +225,20 @@ namespace ServerApp
             {
                 Thread.CurrentThread.Abort();
             }
+        }
+
+        /// <summary>
+        /// Завершение работы сервера и закрытие потока
+        /// </summary>
+        public static void End()
+        {
+            foreach(Socket socket in socketList)
+            {
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+
+            //Thread.CurrentThread.Abort();
         }
 
     }

@@ -18,10 +18,10 @@ namespace DbLibrary
         public bool IsOniline { set; get; }
     }
 
-    public class DbMessage
-    {
-        public int MessageID { set; get; }
+    //public class DbMessage
+    //{
+    //    public int MessageID { set; get; }
 
-        public string JSonObject { set; get; }
-    }
+    //    public string JSonObject { set; get; }
+    //}
 }

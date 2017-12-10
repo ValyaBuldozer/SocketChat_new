@@ -57,6 +57,12 @@ namespace ClientApp
             _connectionFlag = false;
         }
 
+        /// <summary>
+        /// Метод подключения к серверу
+        /// </summary>
+        /// <param name="username">Имя пользвателя</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>true - при успешной процедуре верификации, false - если верификация не пройдена</returns>
         public bool ConnectToServer(string username,string password)
         {
             try
@@ -88,6 +94,13 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Процедура верификации пользователя
+        /// </summary>
+        /// <param name="socket">Сокет соединения с сервером</param>
+        /// <param name="username">Имя пользователя</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>Успех\провал</returns>
         public bool Werification(Socket socket,string username,string password)
         {
             socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,username,password).Serialize()));
@@ -116,6 +129,11 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Получить сообщение от сервера
+        /// </summary>
+        /// <param name="socket">Сокет соединения с сервером</param>
+        /// <returns>Полученное сообщение</returns>
         static public Message GetMessage(Socket socket)
         {
             byte[] bytes = new byte[1024];
@@ -130,6 +148,10 @@ namespace ClientApp
             return ret.Deserialize(data);
         }
 
+        /// <summary>
+        /// Метод прослушивания сокета сервера
+        /// </summary>
+        /// <param name="clientObject">Текущий экземпляр класса Client</param>
         static public void Listen(object clientObject)
         {
             try
@@ -156,6 +178,10 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Послать сообщение серверу
+        /// </summary>
+        /// <param name="message">Текуст сообщения</param>
         public void SendMessage(string message)
         {
             if (!_connectionFlag) return;

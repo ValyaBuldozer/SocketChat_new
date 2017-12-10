@@ -17,7 +17,7 @@ namespace ServerApp
         public string GetMessage { get => _message; set => _message = value; }
         public string GetUsername { get => _username; set => _username = value; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public MessageType GetMessageType { get => _messageType; }
+        public MessageType GetMessageType { get => _messageType; set => _messageType = value; }
         public string GetRecipient { get => _recipient; set => _recipient = value; }
 
         public Message(MessageType messageType, string username = "", string message = "",string recipient = "")

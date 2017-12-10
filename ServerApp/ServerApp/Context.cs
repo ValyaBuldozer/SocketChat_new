@@ -1,13 +1,12 @@
 ﻿using System.Data.Entity;
-using DbLibrary;
 
 namespace ServerApp
 {
     class Context: DbContext
     {
-        public Context ():base ("UsersAndMessages") { }
+        public Context ():base ("DbConnection") { }
 
-        DbSet<User> Users { set; get; }
-        DbSet<DbMessage> Messages { set; get; }
+        public DbSet<User> Users { set; get; }
+        //public DbSet<DbMessage> Messages { set; get; }
     }
 }

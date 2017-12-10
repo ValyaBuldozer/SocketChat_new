@@ -8,11 +8,16 @@ using System.Net.Sockets;
 using System.Threading;
 using Newtonsoft.Json;
 using System.IO;
+using System.Data.Entity;
 
 namespace ServerApp
 {
     class Program
     {
+        public static Context context = new Context();
+
+        private static int userCount = 0;
+
         static void Main(string[] args)
         {
             Thread serverThread = new Thread(new ThreadStart(Server.Run));
@@ -45,7 +50,7 @@ namespace ServerApp
                             }
                             try
                             {
-                                WriteUserPasDic();
+                               // WriteUserPasDic();
                                 endFlag = false;
                                 Server.End();
                             }
@@ -56,15 +61,15 @@ namespace ServerApp
                             break;
                         }
 
-                    case "save":
-                        {
-                            if (serverThread.IsAlive)
-                                WriteUserPasDic();
-                            else
-                                Console.WriteLine("Run the server before trying to save");
+                    //case "save":
+                    //    {
+                    //        if (serverThread.IsAlive)
+                    //            WriteUserPasDic();
+                    //        else
+                    //            Console.WriteLine("Run the server before trying to save");
 
-                            break;
-                        }
+                    //        break;
+                    //    }
 
                     case "register":
                         {
@@ -77,7 +82,7 @@ namespace ServerApp
                             Console.WriteLine("Enter username");
                             string username = Console.ReadLine();
 
-                            if(Server.UsernamePasswaordDic.ContainsKey(username))
+                            if(Server.UsernamePasswaordDic.ContainsKey(username) || username == "server")
                             {
                                 Console.WriteLine("Username already taken");
                                 break;
@@ -87,6 +92,9 @@ namespace ServerApp
                             string password = Console.ReadLine();
 
                             Server.UsernamePasswaordDic.Add(username, new ClientInfo(username, password));
+                            context.Users.Add(new User(userCount++, username, password));
+                            context.SaveChanges();
+
                             Console.WriteLine("Registration complited");
                             break;
                         }
@@ -102,21 +110,15 @@ namespace ServerApp
         }
 
         static void ReadUserPasDic()
-        {
-            FileStream fileStream =
-                new FileStream("NamePassswordDic.txt", FileMode.OpenOrCreate, FileAccess.Read);
-            StreamReader reader = new StreamReader(fileStream);
+        { 
+            var userList = context.Users;
 
-            Server.UsernamePasswaordDic = 
-                JsonConvert.DeserializeObject<Dictionary<string, ClientInfo>>(reader.ReadToEnd());
-
-            reader.Close();
-
-
+            foreach(var i in userList)
+            {
+                Server.UsernamePasswaordDic.Add(i.Username, new ClientInfo(i.Username, i.Password, false));
+                userCount = i.Id;
+            }
         }
-
-        static void WriteUserPasDic() => File.WriteAllText("NamePassswordDic.txt",
-                JsonConvert.SerializeObject(Server.UsernamePasswaordDic));
     }
 }
 

@@ -15,69 +15,13 @@ namespace ClientApp
 {
     public partial class Chat_form : Form
     {
-        public Client client = new Client();
-
-        public Chat_form()
-        {
-            
-            InitializeComponent();
-
-            client.MessageEvent += MessageEvevntHandler;
-            Client.ServerErrorEvent += ServerErrorEventHandler;
-        }
-
-        private void send_button_Click(object sender, EventArgs e)
-        {
-            client.SendMessage(sendMessage_textBox.Text);
-        }   
-
-        private void Chat_form_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-            Application.Exit();
-        }
-
-        private void Chat_form_Shown(object sender, EventArgs e)
-        {
-            timer.Start();
-        }
-        
-        private void Top_Menu_Click(object sender, EventArgs e)
-        {
-            switch ((sender as ToolStripMenuItem).Name)
-            {
-                case "About":
-                    {
-                        AboutBox ab = new AboutBox();
-                        ab.Show();
-                        break;
-                    }
-                //case "Users_menu":
-                //    {
-                //        if (Width < 800)
-                //        {
-                //            users.Visible = !users.Visible;
-                //            Animation();
-                //        }
-                //        break;
-                //    }
-                case "СhangeUser":
-                    {
-                        this.Hide();
-                        Program.cf.Show();
-                        break;
-                    }
-                case "Exit":
-                    {
-                        Application.Exit();
-                        break;
-                    }
-            }
-        }
-
+        /// <summary>
+        /// Обработчик сообщения с сервера
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="e"></param>
         private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
-            //я не понимаю что это но оно работает
             Action action = () =>
             {
                 switch (e.message.GetMessageType)
@@ -143,6 +87,66 @@ namespace ClientApp
                 Invoke(action);
             else
                 action();
+        }
+
+        public Client client = new Client();
+
+        public Chat_form()
+        {
+            
+            InitializeComponent();
+
+            client.MessageEvent += MessageEvevntHandler;
+            Client.ServerErrorEvent += ServerErrorEventHandler;
+        }
+
+        private void send_button_Click(object sender, EventArgs e)
+        {
+            client.SendMessage(sendMessage_textBox.Text);
+        }   
+
+        private void Chat_form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            Application.Exit();
+        }
+
+        private void Chat_form_Shown(object sender, EventArgs e)
+        {
+            timer.Start();
+        }
+        
+        private void Top_Menu_Click(object sender, EventArgs e)
+        {
+            switch ((sender as ToolStripMenuItem).Name)
+            {
+                case "About":
+                    {
+                        AboutBox ab = new AboutBox();
+                        ab.Show();
+                        break;
+                    }
+                //case "Users_menu":
+                //    {
+                //        if (Width < 800)
+                //        {
+                //            users.Visible = !users.Visible;
+                //            Animation();
+                //        }
+                //        break;
+                //    }
+                case "СhangeUser":
+                    {
+                        this.Hide();
+                        Program.cf.Show();
+                        break;
+                    }
+                case "Exit":
+                    {
+                        Application.Exit();
+                        break;
+                    }
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
