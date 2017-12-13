@@ -13,19 +13,22 @@ namespace ClientApp
         private string _username;
         private MessageType _messageType;
         private string _recipient;
+        private DateTime _time;
 
         public string GetMessage { get => _message; set => _message = value; }
         public string GetUsername { get => _username; set => _username = value; }
         [JsonConverter(typeof(StringEnumConverter))]
         public MessageType GetMessageType { get => _messageType; set => _messageType = value; }
         public string GetRecipient { get => _recipient; set => _recipient = value; }
+        public DateTime GetTime { get => _time; set => _time = value; }
 
-        public Message(MessageType messageType, string username = "", string message = "", string recipient = "")
+        public Message(MessageType messageType, DateTime time, string username = "", string message = "", string recipient = "")
         {
             _messageType = messageType;
             _message = message;
             _username = username;
             _recipient = recipient;
+            _time = time;
         }
 
         /// <summary>
@@ -44,9 +47,11 @@ namespace ClientApp
             {
                 Message temp = JsonConvert.DeserializeObject<Message>(jsonObject);
 
-                _message = temp.GetMessage;
+                _message = temp.GetMessage;             //костыль плохо!
                 _username = temp._username;
                 _messageType = temp.GetMessageType;
+                _time = temp.GetTime;
+                _recipient = temp.GetRecipient;
                 return this;
             }
             catch (Exception) { return null; }

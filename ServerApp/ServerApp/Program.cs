@@ -36,8 +36,10 @@ namespace ServerApp
                                 break;
                             }
 
+                            Console.WriteLine("Wait...");
                             ReadUserPasDic();
                             serverThread.Start();
+                            Console.WriteLine("Completed");
                             break;
                         }
 

@@ -103,7 +103,7 @@ namespace ClientApp
         /// <returns>Успех\провал</returns>
         public bool Werification(Socket socket,string username,string password)
         {
-            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,username,password).Serialize()));
+            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,DateTime.Now,username,password).Serialize()));
 
             Message answer = GetMessage(socket);
 
@@ -144,7 +144,7 @@ namespace ClientApp
             if (data.Contains("\0"))
                 data = data.Remove(data.IndexOf('\0'));
 
-            Message ret = new Message(MessageType.Message);
+            Message ret = new Message(MessageType.Message,DateTime.Now);
             return ret.Deserialize(data);
         }
 
@@ -182,12 +182,17 @@ namespace ClientApp
         /// Послать сообщение серверу
         /// </summary>
         /// <param name="message">Текуст сообщения</param>
-        public void SendMessage(string message)
+        public void SendMessage(string message,string Recipient)
         {
             if (!_connectionFlag) return;
             if (message == null || message == "") return;
 
-            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,_username,message).Serialize()));
+            if(Recipient == null)
+                socket.Send(Encoding.UTF8.GetBytes(
+                    new Message(MessageType.Message, DateTime.Now, _username, message).Serialize()));
+            else
+                socket.Send(Encoding.UTF8.GetBytes(
+                    new Message(MessageType.PrivateMessage, DateTime.Now, _username, message, Recipient).Serialize()));
 
         }
 

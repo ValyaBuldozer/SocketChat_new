@@ -22,18 +22,21 @@ namespace ClientApp
         /// <param name="e"></param>
         private void MessageEvevntHandler(object handler, MessageEventInfo e)
         {
+            //don't ask, don't touch
             Action action = () =>
             {
                 switch (e.message.GetMessageType)
                 {
                     case MessageType.Message:
                         {
-                            Chat_textBox.Text += e.message.GetUsername + ": " + e.message.GetMessage + Environment.NewLine;
+                            Chat_textBox.Text += e.message.GetTime.ToShortTimeString() + "   " + e.message.GetUsername 
+                                + ": " + e.message.GetMessage + Environment.NewLine;
                             break;
                         }
                     case MessageType.PrivateMessage:
                         {
-                            Chat_textBox.Text += "Private from "+ e.message.GetUsername + ": " + e.message.GetMessage + Environment.NewLine;
+                            Chat_textBox.Text += e.message.GetTime.ToShortTimeString() + " " + "Private from " + e.message.GetUsername + ": "
+                                + e.message.GetMessage + Environment.NewLine;
                             break;
                         }
                     case MessageType.UserList:
@@ -41,7 +44,7 @@ namespace ClientApp
                             string[] users = e.message.GetMessage.Split(new char[1] { ';' });
 
                             foreach (string user in users)
-                                users_ListBox.Items.Add(user);
+                                if(user!="") users_ListBox.Items.Add(user);     //фиксик починил баг
 
                             break;
                         }
@@ -103,11 +106,26 @@ namespace ClientApp
 
             client.MessageEvent += MessageEvevntHandler;
             Client.ServerErrorEvent += ServerErrorEventHandler;
+
+            users_ListBox.Items.Add("Всем");
         }
 
         private void send_button_Click(object sender, EventArgs e)
         {
-            client.SendMessage(sendMessage_textBox.Text);
+            if (sendMessage_textBox.Text == "" || sendMessage_textBox.Text == null) return;
+
+            if (users_ListBox.SelectedItem == null || users_ListBox.SelectedIndex == 0)     //не приватное сообщение
+                client.SendMessage(sendMessage_textBox.Text, null);
+            else                                                                            //приватное сообщение
+            {
+                client.SendMessage(sendMessage_textBox.Text, users_ListBox.SelectedItem.ToString());
+
+                //сами ручками его отобразим
+                Chat_textBox.Text += DateTime.Now.ToShortTimeString() + " " + "Private to " + users_ListBox.SelectedItem.ToString()
+                    + ": " + sendMessage_textBox.Text + Environment.NewLine;
+            }
+
+            sendMessage_textBox.Text = "";
         }   
 
         private void Chat_form_FormClosing(object sender, FormClosingEventArgs e)

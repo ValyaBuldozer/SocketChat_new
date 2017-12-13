@@ -150,14 +150,14 @@ namespace ServerApp
                     {
                         if (usersInfoDic[username].IsOnline)
                         {
-                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "err_useronline")
+                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,DateTime.Now,"server", "err_useronline")
                                 .Serialize()));
                         }
                         else
                         {
-                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,"server", "success")
+                            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Message,DateTime.Now,"server", "success")
                                 .Serialize()));
-                            SendMessageToSockets(new Message(MessageType.UserConnect, username));
+                            SendMessageToSockets(new Message(MessageType.UserConnect, DateTime.Now, username));
                             socketList.Add(socket);
                             usersInfoDic[username].IsOnline = true;
                             flag = false;
@@ -165,13 +165,13 @@ namespace ServerApp
                         }
                     }
                     else
-                        socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "invalid_password")
+                        socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error, DateTime.Now, "server", "invalid_password")
                             .Serialize()));
                 }
                 catch(KeyNotFoundException ex)
                 {
                     flag = true;
-                    socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "name_not_found")
+                    socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error, DateTime.Now, "server", "name_not_found")
                         .Serialize()));
                 }
             }
@@ -191,7 +191,7 @@ namespace ServerApp
                 if (client.Value.IsOnline)
                     userList += client.Key + ";";
 
-            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.UserList,"server",userList).Serialize()));
+            socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.UserList, DateTime.Now, "server",userList).Serialize()));
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace ServerApp
             if (data.Contains("\0"))
                 data = data.Remove(data.IndexOf('\0'));
 
-            Message ret = new Message(MessageType.Message);
+            Message ret = new Message(MessageType.Message, DateTime.Now);
             return ret.Deserialize(data);
         }
 
@@ -238,7 +238,7 @@ namespace ServerApp
             {
                 usersInfoDic[username].IsOnline = false;
                 usersInfoDic[username].Socket = null;
-                SendMessageToSockets(new Message(MessageType.UserDisconnect,username));
+                SendMessageToSockets(new Message(MessageType.UserDisconnect, DateTime.Now, username));
             }
 
             try
