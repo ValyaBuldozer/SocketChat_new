@@ -19,26 +19,41 @@ namespace ServerApp
         private string _username;
         private string _password;
         private bool _isOnline;
+        private Socket _socket;
 
+        /// <summary>
+        /// Имя пользователя
+        /// </summary>
         public string Username { get => _username; }
+        /// <summary>
+        /// Пароль пользователя
+        /// </summary>
         public string Password { get => _password; set => _password = value; }
+        /// <summary>
+        /// Состояние пользователя
+        /// </summary>
         public bool IsOnline { get => _isOnline; set => _isOnline = value; }
+        /// <summary>
+        /// Сокет соединения с пользователем
+        /// </summary>
+        public Socket Socket { get => _socket; set => _socket = value; }
 
         public ClientInfo(string userame,string password="",bool isOnline=false)
         {
             _username = userame;
             _password = password;
             _isOnline = isOnline;
+            _socket = null;
         }
     }
 
     class Server
     {
-        private static Dictionary<string, ClientInfo> usernamePasswaordDic 
+        private static Dictionary<string, ClientInfo> usersInfoDic 
             = new Dictionary<string, ClientInfo>();
 
         internal static Dictionary<string, ClientInfo> UsernamePasswaordDic
-            { get => usernamePasswaordDic; set => usernamePasswaordDic = value; }
+            { get => usersInfoDic; set => usersInfoDic = value; }
 
         private static List<Socket> socketList = new List<Socket>();
 
@@ -55,7 +70,7 @@ namespace ServerApp
                 = new Socket(iPAdr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             //Устраняем последствия неправильного закрытия сервера
-            foreach (KeyValuePair<string, ClientInfo> client in usernamePasswaordDic)
+            foreach (KeyValuePair<string, ClientInfo> client in usersInfoDic)
                 client.Value.IsOnline = false;
 
             try
@@ -88,12 +103,20 @@ namespace ServerApp
                 username = GetNamePassword((handler as Socket));
                 Thread.Sleep(200);          //грязный хак, надо убрать
                 SendUserList(handler as Socket);
+                usersInfoDic[username].Socket = (handler as Socket);
 
                 while (true)
                 {
                     Message msg = GetMessage((handler as Socket));
+
                     if (msg.GetMessageType == MessageType.UserDisconnect) break;
-                    SendMessageToSockets(msg);
+                    if(msg.GetMessageType == MessageType.PrivateMessage)
+                    {
+                        if ((!usersInfoDic.ContainsKey(msg.GetRecipient)) || !usersInfoDic[msg.GetRecipient].IsOnline) break;
+                        usersInfoDic[msg.GetRecipient].Socket.Send(Encoding.UTF8.GetBytes(msg.Serialize()));
+                    }
+                    else
+                        SendMessageToSockets(msg);
                 }
 
             }
@@ -123,9 +146,9 @@ namespace ServerApp
 
                 try
                 {
-                    if (usernamePasswaordDic[username].Password == password)
+                    if (usersInfoDic[username].Password == password)
                     {
-                        if (usernamePasswaordDic[username].IsOnline)
+                        if (usersInfoDic[username].IsOnline)
                         {
                             socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.Error,"server", "err_useronline")
                                 .Serialize()));
@@ -136,8 +159,9 @@ namespace ServerApp
                                 .Serialize()));
                             SendMessageToSockets(new Message(MessageType.UserConnect, username));
                             socketList.Add(socket);
-                            usernamePasswaordDic[username].IsOnline = true;
+                            usersInfoDic[username].IsOnline = true;
                             flag = false;
+                            return username;
                         }
                     }
                     else
@@ -151,6 +175,7 @@ namespace ServerApp
                         .Serialize()));
                 }
             }
+            throw new SocketException();
             return username;
         }
 
@@ -209,9 +234,10 @@ namespace ServerApp
         {
             socketList.Remove(socket);
 
-            if (usernamePasswaordDic.ContainsKey(username))
+            if (usersInfoDic.ContainsKey(username))
             {
-                usernamePasswaordDic[username].IsOnline = false;
+                usersInfoDic[username].IsOnline = false;
+                usersInfoDic[username].Socket = null;
                 SendMessageToSockets(new Message(MessageType.UserDisconnect,username));
             }
 

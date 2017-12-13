@@ -31,6 +31,11 @@ namespace ClientApp
                             Chat_textBox.Text += e.message.GetUsername + ": " + e.message.GetMessage + Environment.NewLine;
                             break;
                         }
+                    case MessageType.PrivateMessage:
+                        {
+                            Chat_textBox.Text += "Private from "+ e.message.GetUsername + ": " + e.message.GetMessage + Environment.NewLine;
+                            break;
+                        }
                     case MessageType.UserList:
                         {
                             string[] users = e.message.GetMessage.Split(new char[1] { ';' });
