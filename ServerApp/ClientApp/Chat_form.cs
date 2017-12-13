@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-
-
+using ServerApp;
 
 namespace ClientApp
 {
@@ -109,8 +108,7 @@ namespace ClientApp
 
             users_ListBox.Items.Add("Всем");
         }
-
-        private void send_button_Click(object sender, EventArgs e)
+        private void Send()
         {
             if (sendMessage_textBox.Text == "" || sendMessage_textBox.Text == null) return;
 
@@ -126,6 +124,10 @@ namespace ClientApp
             }
 
             sendMessage_textBox.Text = "";
+        }
+        private void send_button_Click(object sender, EventArgs e)
+        {
+            Send();
         }   
 
         private void Chat_form_FormClosing(object sender, FormClosingEventArgs e)
@@ -149,15 +151,10 @@ namespace ClientApp
                         ab.Show();
                         break;
                     }
-                //case "Users_menu":
-                //    {
-                //        if (Width < 800)
-                //        {
-                //            users.Visible = !users.Visible;
-                //            Animation();
-                //        }
-                //        break;
-                //    }
+                case "Users_menu":
+                    {
+                        break;
+                    }
                 case "СhangeUser":
                     {
                         this.Hide();
@@ -209,6 +206,20 @@ namespace ClientApp
                     }
                 }
             });
+        }
+
+        private void sendMessage_textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Send();
+            }
+        }
+
+        private void Chat_form_Load(object sender, EventArgs e)
+        {
+            this.Text = "Чат " + client.Username;
         }
     }
 }

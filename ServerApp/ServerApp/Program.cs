@@ -25,7 +25,7 @@ namespace ServerApp
 
             while(endFlag)
             {
-                Console.WriteLine("\n Enter comand");
+                Console.WriteLine("\nEnter comand");
                 switch(Console.ReadLine())
                 {
                     case "run":
@@ -103,7 +103,7 @@ namespace ServerApp
 
                     default:
                         {
-                            Console.WriteLine("Unknown comand");
+                            Console.WriteLine("Unknown command");
                             break;
                         }
                 }
