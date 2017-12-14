@@ -57,6 +57,8 @@ namespace ServerApp
 
         private static List<Socket> socketList = new List<Socket>();
 
+        private static List<Message> history = new List<Message>();
+
 
         /// <summary>
         /// Запуск сервера
@@ -103,6 +105,8 @@ namespace ServerApp
                 username = GetNamePassword((handler as Socket));
                 Thread.Sleep(200);          //грязный хак, надо убрать
                 SendUserList(handler as Socket);
+                Thread.Sleep(200);          //еще один грязный хак, тоже надо убрать(АСИНХРОН ЗАПИЛИ)
+                SendHistory(handler as Socket);     //houston we have a problem
                 usersInfoDic[username].Socket = (handler as Socket);
 
                 while (true)
@@ -213,6 +217,14 @@ namespace ServerApp
             return ret.Deserialize(data);
         }
 
+        static public void SendHistory(Socket socket)
+        {
+            foreach(var msg in history)
+            {
+                socket.Send(Encoding.UTF8.GetBytes(msg.Serialize()));
+            }
+        }
+
         /// <summary>
         /// Посылает сообщение всем клиентам в сети
         /// </summary>
@@ -221,6 +233,7 @@ namespace ServerApp
         {
             foreach(Socket socket in socketList)
             {
+                if(message.GetMessageType == MessageType.Message) history.Add(message);
                 socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
             }
         }
