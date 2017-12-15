@@ -105,7 +105,7 @@ namespace ServerApp
                 username = GetNamePassword((handler as Socket));
                 Thread.Sleep(200);          //грязный хак, надо убрать
                 SendUserList(handler as Socket);
-                Thread.Sleep(200);          //еще один грязный хак, тоже надо убрать(АСИНХРОН ЗАПИЛИ)
+                (handler as Socket).Receive(new byte[1024]);    //ждем подтверждения от клиента
                 SendHistory(handler as Socket);     //houston we have a problem
                 usersInfoDic[username].Socket = (handler as Socket);
 
@@ -180,7 +180,6 @@ namespace ServerApp
                 }
             }
             throw new SocketException();
-            return username;
         }
 
         /// <summary>
@@ -217,11 +216,17 @@ namespace ServerApp
             return ret.Deserialize(data);
         }
 
+        /// <summary>
+        /// Посылает историю сообщений пользователю (на каждой итерации ждем подтверждения)
+        /// </summary>
+        /// <param name="socket"></param>
         static public void SendHistory(Socket socket)
         {
             foreach(var msg in history)
             {
+                msg.GetMessageType = MessageType.HistoryMessage;
                 socket.Send(Encoding.UTF8.GetBytes(msg.Serialize()));
+                socket.Receive(new byte[1024]);         //ждем подвтерждения от пользователя(зато без асинхрона)
             }
         }
 

@@ -24,37 +24,48 @@ namespace ClientApp
             //don't ask, don't touch
             Action action = () =>
             {
-                switch (e.message.GetMessageType)
+                switch (e.GetMessage.GetMessageType)
                 {
                     case MessageType.Message:
                         {
-                            Chat_textBox.Text += e.message.GetTime.ToShortTimeString() + "   " + e.message.GetUsername 
-                                + ": " + e.message.GetMessage + Environment.NewLine;
+                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + "   " + e.GetMessage.GetUsername 
+                                + ": " + e.GetMessage.GetMessage + Environment.NewLine;
                             break;
                         }
                     case MessageType.PrivateMessage:
                         {
-                            Chat_textBox.Text += e.message.GetTime.ToShortTimeString() + " " + "Private from " + e.message.GetUsername + ": "
-                                + e.message.GetMessage + Environment.NewLine;
+                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + " " + "Private from " + e.GetMessage.GetUsername + ": "
+                                + e.GetMessage.GetMessage + Environment.NewLine;
+                            break;
+                        }
+                    case MessageType.HistoryMessage:
+                        {
+                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + "   " + e.GetMessage.GetUsername
+                                + ": " + e.GetMessage.GetMessage + Environment.NewLine;
+                            e.GetServerSocket.Send(Encoding.UTF8.GetBytes(
+                                new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение
                             break;
                         }
                     case MessageType.UserList:
                         {
-                            string[] users = e.message.GetMessage.Split(new char[1] { ';' });
+                            string[] users = e.GetMessage.GetMessage.Split(new char[1] { ';' });
 
                             foreach (string user in users)
                                 if(user!="") users_ListBox.Items.Add(user);     //фиксик починил баг
+
+                            e.GetServerSocket.Send(Encoding.UTF8.GetBytes(
+                               new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение
 
                             break;
                         }
                     case MessageType.UserConnect:
                         {
-                            users_ListBox.Items.Add(e.message.GetUsername);
+                            users_ListBox.Items.Add(e.GetMessage.GetUsername);
                             break;
                         }
                     case MessageType.UserDisconnect:
                         {
-                            users_ListBox.Items.Remove(e.message.GetUsername);
+                            users_ListBox.Items.Remove(e.GetMessage.GetUsername);
                             break;
                         }
                     default:
@@ -75,7 +86,7 @@ namespace ClientApp
         {
             if (e.info != "Connection to server has been served") return;
 
-            //я не понимаю что это но оно работает
+            //don't ask, don't touch
 
             Action action = () =>
             {

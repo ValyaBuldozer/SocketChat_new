@@ -20,12 +20,17 @@ namespace ClientApp
 
     public class MessageEventInfo : EventArgs
     {
-        public MessageEventInfo(Message message)
+        public MessageEventInfo(Message message,Socket serverSocket)
         {
             this.message = message;
+            this.serverSocket = serverSocket;
         }
 
-        public Message message;
+        private Message message;
+        private Socket serverSocket;
+
+        public Message GetMessage { get => message; }
+        public Socket GetServerSocket { get => serverSocket; }
     }
 
     public class Client
@@ -162,7 +167,7 @@ namespace ClientApp
                 {
                     Message message = GetMessage((clientObject as Client).socket);
 
-                    (clientObject as Client).MessageEventRun(new MessageEventInfo(message));
+                    (clientObject as Client).MessageEventRun(new MessageEventInfo(message,(clientObject as Client).socket));
                 }
                 
                 (clientObject as Client).socket.Shutdown(SocketShutdown.Both);
