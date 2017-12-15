@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 namespace ClientApp
 {
     public enum MessageType
-    { Message, UserConnect, UserList, UserDisconnect, Error, PrivateMessage }
+    { Message, UserConnect, UserList, UserDisconnect, Error, PrivateMessage, HistoryMessage }
 
     public class Message
     {

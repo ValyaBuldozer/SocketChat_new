@@ -49,6 +49,10 @@ namespace ServerApp
 
     class Server
     {
+        private static Context context = new Context();
+
+        public static Context GetDbContext { get => context; }
+
         private static Dictionary<string, ClientInfo> usersInfoDic 
             = new Dictionary<string, ClientInfo>();
 
@@ -56,6 +60,8 @@ namespace ServerApp
             { get => usersInfoDic; set => usersInfoDic = value; }
 
         private static List<Socket> socketList = new List<Socket>();
+
+        private static List<Message> history = new List<Message>();
 
 
         /// <summary>
@@ -103,6 +109,8 @@ namespace ServerApp
                 username = GetNamePassword((handler as Socket));
                 Thread.Sleep(200);          //грязный хак, надо убрать
                 SendUserList(handler as Socket);
+                (handler as Socket).Receive(new byte[1024]);    //ждем подтверждения от клиента
+                SendHistory(handler as Socket);     //houston we have a problem
                 usersInfoDic[username].Socket = (handler as Socket);
 
                 while (true)
@@ -176,7 +184,6 @@ namespace ServerApp
                 }
             }
             throw new SocketException();
-            return username;
         }
 
         /// <summary>
@@ -214,6 +221,20 @@ namespace ServerApp
         }
 
         /// <summary>
+        /// Посылает историю сообщений пользователю (на каждой итерации ждем подтверждения)
+        /// </summary>
+        /// <param name="socket"></param>
+        static public void SendHistory(Socket socket)
+        {
+            foreach(var msg in history)
+            {
+                msg.GetMessageType = MessageType.HistoryMessage;
+                socket.Send(Encoding.UTF8.GetBytes(msg.Serialize()));
+                socket.Receive(new byte[1024]);         //ждем подвтерждения от пользователя(зато без асинхрона)
+            }
+        }
+
+        /// <summary>
         /// Посылает сообщение всем клиентам в сети
         /// </summary>
         /// <param name="message"></param>
@@ -221,6 +242,7 @@ namespace ServerApp
         {
             foreach(Socket socket in socketList)
             {
+                if(message.GetMessageType == MessageType.Message) history.Add(message);
                 socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
             }
         }

@@ -7,6 +7,6 @@ namespace ServerApp
         public Context ():base ("DbConnection") { }
 
         public DbSet<User> Users { set; get; }
-        //public DbSet<DbMessage> Messages { set; get; }
+        public DbSet<DbMessage> Messages { set; get; }
     }
 }
