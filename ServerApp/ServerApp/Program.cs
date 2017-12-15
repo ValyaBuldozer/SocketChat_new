@@ -14,8 +14,6 @@ namespace ServerApp
 {
     class Program
     {
-        public static Context context = new Context();
-
         private static int userCount = 0;
 
         static void Main(string[] args)
@@ -63,16 +61,6 @@ namespace ServerApp
                             break;
                         }
 
-                    //case "save":
-                    //    {
-                    //        if (serverThread.IsAlive)
-                    //            WriteUserPasDic();
-                    //        else
-                    //            Console.WriteLine("Run the server before trying to save");
-
-                    //        break;
-                    //    }
-
                     case "register":
                         {
                             if(!serverThread.IsAlive)
@@ -94,8 +82,8 @@ namespace ServerApp
                             string password = Console.ReadLine();
 
                             Server.UsernamePasswaordDic.Add(username, new ClientInfo(username, password));
-                            context.Users.Add(new User(userCount++, username, password));
-                            context.SaveChanges();
+                            Server.GetDbContext.Users.Add(new User { Username = username,Password = password });
+                            Server.GetDbContext.SaveChanges();
 
                             Console.WriteLine("Registration complited");
                             break;
@@ -113,12 +101,11 @@ namespace ServerApp
 
         static void ReadUserPasDic()
         { 
-            var userList = context.Users;
+            var userList = Server.GetDbContext.Users;
 
             foreach(var i in userList)
             {
                 Server.UsernamePasswaordDic.Add(i.Username, new ClientInfo(i.Username, i.Password, false));
-                userCount = i.Id;
             }
         }
     }

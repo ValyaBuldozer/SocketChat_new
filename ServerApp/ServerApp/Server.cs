@@ -49,6 +49,10 @@ namespace ServerApp
 
     class Server
     {
+        private static Context context = new Context();
+
+        public static Context GetDbContext { get => context; }
+
         private static Dictionary<string, ClientInfo> usersInfoDic 
             = new Dictionary<string, ClientInfo>();
 
