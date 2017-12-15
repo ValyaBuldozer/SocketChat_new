@@ -164,6 +164,8 @@ namespace ClientApp
                     }
                 case "Help":
                     {
+                        Help_form help = new Help_form();
+                        help.Show();
                         break;
                     }
                 case "СhangeUser":
@@ -189,35 +191,7 @@ namespace ClientApp
             }
         }
 
-        private void Animation()
-        {
-            double maxheight = Height * 0.6328;
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = 1;
-            timer.Start();
-            timer.Tick += new EventHandler((o, ev) =>
-            {
-                if (users_ListBox.Visible)
-                {
-
-                    if (users_ListBox.Height > maxheight)
-                    {
-                        System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
-                        t.Stop();
-                    }
-                    else users_ListBox.Height += (int)(maxheight * 0.09);
-                }
-                else
-                {
-                    users_ListBox.Height -= (int)(maxheight * 0.09);
-                    if (users_ListBox.Height <= 0)
-                    {
-                        System.Windows.Forms.Timer t = o as System.Windows.Forms.Timer; // можно тут просто воспользоваться timer
-                        t.Stop();
-                    }
-                }
-            });
-        }
+        
 
         private void sendMessage_textBox_KeyPress(object sender, KeyPressEventArgs e)
         {

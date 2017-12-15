@@ -70,6 +70,12 @@
     <Compile Include="Chat_form.Designer.cs">
       <DependentUpon>Chat_form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Help_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help_form.Designer.cs">
+      <DependentUpon>Help_form.cs</DependentUpon>
+    </Compile>
     <Compile Include="MessageClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CheckIn_form.resx">
       <DependentUpon>CheckIn_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help_form.resx">
+      <DependentUpon>Help_form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
