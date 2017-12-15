@@ -23,7 +23,7 @@ namespace ServerApp
 
             while(endFlag)
             {
-                Console.WriteLine("\nEnter comand");
+                Console.WriteLine("\nEnter command");
                 switch(Console.ReadLine())
                 {
                     case "run":
