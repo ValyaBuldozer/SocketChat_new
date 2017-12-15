@@ -139,7 +139,8 @@
             this.textBoxDescription.Size = new System.Drawing.Size(276, 67);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "The best chat in the world";
+            this.textBoxDescription.Text = "The best chat in the world \r\nГлава Backend: Котельников Владислав\r\nГлава Frontend" +
+    ": Остроух Илья\r\n\r\n";
             // 
             // okButton
             // 

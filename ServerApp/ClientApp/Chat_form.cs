@@ -151,7 +151,7 @@ namespace ClientApp
                         ab.Show();
                         break;
                     }
-                case "Users_menu":
+                case "Help":
                     {
                         break;
                     }
@@ -219,7 +219,7 @@ namespace ClientApp
 
         private void Chat_form_Load(object sender, EventArgs e)
         {
-            this.Text = "Чат " + client.Username;
+            this.Text += " " + client.Username;
         }
     }
 }
