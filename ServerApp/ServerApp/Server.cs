@@ -226,7 +226,15 @@ namespace ServerApp
         /// <param name="socket"></param>
         static public void SendHistory(Socket socket)
         {
-            foreach(var msg in history)
+            List<Message> sendList = new List<Message>();
+
+            foreach(var msgJson in GetDbContext.Messages)
+            {
+                sendList.Add(new Message(MessageType.Message, DateTime.Now).Deserialize(msgJson.MessageJson));
+            }
+            sendList.AddRange(history);
+
+            foreach(var msg in sendList)
             {
                 msg.GetMessageType = MessageType.HistoryMessage;
                 socket.Send(Encoding.UTF8.GetBytes(msg.Serialize()));
@@ -242,8 +250,14 @@ namespace ServerApp
         {
             foreach(Socket socket in socketList)
             {
-                if(message.GetMessageType == MessageType.Message) history.Add(message);
                 socket.Send(Encoding.UTF8.GetBytes(message.Serialize()));
+            }
+
+            if(message.GetMessageType == MessageType.Message) history.Add(message);
+            if (history.Count == 15)
+            {
+                SyncDB(history,true);
+                history.Clear();
             }
         }
 
@@ -276,6 +290,23 @@ namespace ServerApp
         }
 
         /// <summary>
+        /// Добавляет значения в базу данных
+        /// </summary>
+        /// <param name="messageList">Список сообщеий</param>
+        /// <param name="asyncFlag">Флаг, указывает будет ли сохраниение изменений выплняться асинхронно</param>
+        public static void SyncDB(List<Message> messageList,bool asyncFlag)
+        {
+            foreach(var msg in messageList)
+            {
+                GetDbContext.Messages.Add(new DbMessage() { MessageJson = msg.Serialize() });
+            }
+            if (asyncFlag)
+                GetDbContext.SaveChangesAsync();
+            else
+                GetDbContext.SaveChanges();
+        }
+
+        /// <summary>
         /// Завершение работы сервера и закрытие потока
         /// </summary>
         public static void End()
@@ -286,6 +317,7 @@ namespace ServerApp
                 socket.Close();
             }
 
+            SyncDB(history,false);
             //Thread.CurrentThread.Abort();
         }
 

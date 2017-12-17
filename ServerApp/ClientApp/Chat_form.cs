@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-using ServerApp;
+using System.Net.Sockets;
 
 namespace ClientApp
 {
@@ -27,23 +27,10 @@ namespace ClientApp
                 switch (e.GetMessage.GetMessageType)
                 {
                     case MessageType.Message:
-                        {
-                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + "   " + e.GetMessage.GetUsername 
-                                + ": " + e.GetMessage.GetMessage + Environment.NewLine;
-                            break;
-                        }
                     case MessageType.PrivateMessage:
-                        {
-                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + " " + "Private from " + e.GetMessage.GetUsername + ": "
-                                + e.GetMessage.GetMessage + Environment.NewLine;
-                            break;
-                        }
                     case MessageType.HistoryMessage:
                         {
-                            Chat_textBox.Text += e.GetMessage.GetTime.ToShortTimeString() + "   " + e.GetMessage.GetUsername
-                                + ": " + e.GetMessage.GetMessage + Environment.NewLine;
-                            e.GetServerSocket.Send(Encoding.UTF8.GetBytes(
-                                new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение
+                            AddMessage(e.GetMessage, e.GetServerSocket);
                             break;
                         }
                     case MessageType.UserList:
@@ -94,7 +81,7 @@ namespace ClientApp
                 Chat_textBox.Clear();
                 //
                 users_ListBox.Items.Clear();
-                //
+                
                 client = new Client();
 
                 this.Hide();
@@ -105,6 +92,21 @@ namespace ClientApp
                 Invoke(action);
             else
                 action();
+        }
+
+        private void AddMessage(Message message,Socket server)
+        {
+            if(message.GetMessageType == MessageType.PrivateMessage)
+                Chat_textBox.Text += message.GetTime.ToShortTimeString() + " " + "Private from " + message.GetUsername + ": "
+                                + message.GetMessage + Environment.NewLine;
+            else
+                Chat_textBox.Text += message.GetTime.ToShortTimeString() + "   " + message.GetUsername
+                                + ": " + message.GetMessage + Environment.NewLine;
+
+            if(message.GetMessageType == MessageType.HistoryMessage)
+                server.Send(Encoding.UTF8.GetBytes(
+                    new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение DON'T TOUCH
+
         }
 
         public Client client = new Client();

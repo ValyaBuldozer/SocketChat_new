@@ -20,6 +20,9 @@ namespace ServerApp
         {
             Thread serverThread = new Thread(new ThreadStart(Server.Run));
             bool endFlag = true;
+            //Server.GetDbContext.Database.Delete();
+            //Server.GetDbContext.Users.RemoveRange(Server.GetDbContext.Users);
+            //Server.GetDbContext.SaveChanges();
 
             while(endFlag)
             {
@@ -86,6 +89,13 @@ namespace ServerApp
                             Server.GetDbContext.SaveChanges();
 
                             Console.WriteLine("Registration complited");
+                            break;
+                        }
+
+                    case "clearhistory":
+                        {
+                            Server.GetDbContext.Messages.RemoveRange(Server.GetDbContext.Messages);
+                            Server.GetDbContext.SaveChanges();
                             break;
                         }
 
