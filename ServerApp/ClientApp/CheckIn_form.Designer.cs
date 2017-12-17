@@ -91,10 +91,10 @@
             this.panel.Controls.Add(this.close_button);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panel.Location = new System.Drawing.Point(315, 3);
+            this.panel.Location = new System.Drawing.Point(314, 3);
             this.panel.Name = "panel";
             this.tableLayoutPanel.SetRowSpan(this.panel, 3);
-            this.panel.Size = new System.Drawing.Size(34, 134);
+            this.panel.Size = new System.Drawing.Size(35, 134);
             this.panel.TabIndex = 1;
             // 
             // password_maskedTextBox
@@ -120,7 +120,7 @@
             this.checkin_button.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkin_button.Location = new System.Drawing.Point(121, 103);
             this.checkin_button.Name = "checkin_button";
-            this.checkin_button.Size = new System.Drawing.Size(188, 34);
+            this.checkin_button.Size = new System.Drawing.Size(187, 34);
             this.checkin_button.TabIndex = 4;
             this.checkin_button.Text = "CHECK IN";
             this.checkin_button.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.84615F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.15385F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel.Controls.Add(this.checkin_button, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.panel, 2, 0);
             this.tableLayoutPanel.Controls.Add(this.password_maskedTextBox, 1, 1);

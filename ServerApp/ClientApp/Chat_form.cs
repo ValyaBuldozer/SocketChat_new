@@ -12,6 +12,8 @@ using System.Net.Sockets;
 
 namespace ClientApp
 {
+    
+
     public partial class Chat_form : Form
     {
         /// <summary>
@@ -94,14 +96,25 @@ namespace ClientApp
                 action();
         }
 
+
+       
+
         private void AddMessage(Message message,Socket server)
         {
-            if(message.GetMessageType == MessageType.PrivateMessage)
-                Chat_textBox.Text += message.GetTime.ToShortTimeString() + " " + "Private from " + message.GetUsername + ": "
-                                + message.GetMessage + Environment.NewLine;
+            if (message.GetMessageType == MessageType.PrivateMessage)
+            {
+                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]",Color.LightSlateGray, FontStyle.Bold);
+                Chat_textBox.AppendText(message.GetUsername + ": "
+                                + message.GetMessage + Environment.NewLine, Color.Firebrick, FontStyle.Bold);
+                
+            }
             else
-                Chat_textBox.Text += message.GetTime.ToShortTimeString() + "   " + message.GetUsername
-                                + ": " + message.GetMessage + Environment.NewLine;
+            {
+                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]", Color.LightSlateGray, FontStyle.Bold);
+                Chat_textBox.AppendText(message.GetUsername + ": "
+                                + message.GetMessage + Environment.NewLine, Color.Black, FontStyle.Regular);
+                
+            }
 
             if(message.GetMessageType == MessageType.HistoryMessage)
                 server.Send(Encoding.UTF8.GetBytes(
@@ -132,8 +145,11 @@ namespace ClientApp
                 client.SendMessage(sendMessage_textBox.Text, users_ListBox.SelectedItem.ToString());
 
                 //сами ручками его отобразим
-                Chat_textBox.Text += DateTime.Now.ToShortTimeString() + " " + "Private to " + users_ListBox.SelectedItem.ToString()
-                    + ": " + sendMessage_textBox.Text + Environment.NewLine;
+                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]", Color.LightSlateGray, FontStyle.Bold);
+                Chat_textBox.AppendText("Private to " + users_ListBox.SelectedItem.ToString()
+                    + ": " + sendMessage_textBox.Text + Environment.NewLine, Color.Firebrick, FontStyle.Bold);
+
+                
             }
 
             sendMessage_textBox.Text = "";
@@ -200,6 +216,7 @@ namespace ClientApp
            
             if (e.KeyChar == (char)Keys.Enter)
             {
+                e.Handled = true;
                 Send();
             }
         }
@@ -207,6 +224,28 @@ namespace ClientApp
         private void Chat_form_Load(object sender, EventArgs e)
         {
             this.Text += " " + client.Username;
+        }
+
+        private void Chat_textBox_TextChanged(object sender, EventArgs e)
+        {
+            // set the current caret position to the end
+            Chat_textBox.SelectionStart = Chat_textBox.Text.Length;
+            // scroll it automatically
+            Chat_textBox.ScrollToCaret();
+        }
+    }
+    public static class RichTextBoxExtensions
+    {
+        public static void AppendText(this RichTextBox box, string text, Color color, FontStyle font)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+
+            box.SelectionColor = color;
+            Font currentFont = box.SelectionFont;
+            box.SelectionFont = new Font(currentFont, font);
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
         }
     }
 }

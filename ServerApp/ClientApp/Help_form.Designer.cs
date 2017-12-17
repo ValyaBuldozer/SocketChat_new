@@ -38,6 +38,7 @@
             this.sendingMessages = new System.Windows.Forms.ToolStripMenuItem();
             this.Info_box_interf = new System.Windows.Forms.RichTextBox();
             this.Info_box_mes = new System.Windows.Forms.RichTextBox();
+            this.understand_button = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             this.Info_box_reg.Location = new System.Drawing.Point(12, 30);
             this.Info_box_reg.Name = "Info_box_reg";
             this.Info_box_reg.ReadOnly = true;
-            this.Info_box_reg.Size = new System.Drawing.Size(364, 237);
+            this.Info_box_reg.Size = new System.Drawing.Size(379, 207);
             this.Info_box_reg.TabIndex = 0;
             this.Info_box_reg.Text = "Reg";
             // 
@@ -103,7 +104,7 @@
             this.Info_box_interf.Location = new System.Drawing.Point(12, 30);
             this.Info_box_interf.Name = "Info_box_interf";
             this.Info_box_interf.ReadOnly = true;
-            this.Info_box_interf.Size = new System.Drawing.Size(364, 237);
+            this.Info_box_interf.Size = new System.Drawing.Size(379, 207);
             this.Info_box_interf.TabIndex = 2;
             this.Info_box_interf.Text = "Interf";
             // 
@@ -114,15 +115,26 @@
             this.Info_box_mes.Location = new System.Drawing.Point(12, 30);
             this.Info_box_mes.Name = "Info_box_mes";
             this.Info_box_mes.ReadOnly = true;
-            this.Info_box_mes.Size = new System.Drawing.Size(364, 237);
+            this.Info_box_mes.Size = new System.Drawing.Size(379, 207);
             this.Info_box_mes.TabIndex = 3;
             this.Info_box_mes.Text = "Mes";
+            // 
+            // understand_button
+            // 
+            this.understand_button.Location = new System.Drawing.Point(156, 244);
+            this.understand_button.Name = "understand_button";
+            this.understand_button.Size = new System.Drawing.Size(82, 23);
+            this.understand_button.TabIndex = 4;
+            this.understand_button.Text = "Понятно";
+            this.understand_button.UseVisualStyleBackColor = true;
+            this.understand_button.Click += new System.EventHandler(this.understand_button_Click);
             // 
             // Help_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 279);
+            this.Controls.Add(this.understand_button);
             this.Controls.Add(this.Info_box_mes);
             this.Controls.Add(this.Info_box_interf);
             this.Controls.Add(this.Info_box_reg);
@@ -132,9 +144,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "Help_form";
             this.Opacity = 0D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Help";
             this.Shown += new System.EventHandler(this.Help_form_Shown);
             this.menuStrip.ResumeLayout(false);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.ToolStripMenuItem sendingMessages;
         private System.Windows.Forms.RichTextBox Info_box_interf;
         private System.Windows.Forms.RichTextBox Info_box_mes;
+        private System.Windows.Forms.Button understand_button;
     }
 }

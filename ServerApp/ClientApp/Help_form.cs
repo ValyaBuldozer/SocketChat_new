@@ -55,5 +55,10 @@ namespace ClientApp
             Info_box_interf.Visible = false;
             Info_box_mes.Visible = true;
         }
+
+        private void understand_button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
