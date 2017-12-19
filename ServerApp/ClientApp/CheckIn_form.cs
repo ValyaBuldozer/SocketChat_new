@@ -20,6 +20,8 @@ namespace ClientApp
             InitializeComponent();
             chat_Form = new Chat_form();
             Client.ServerErrorEvent += HandlerServerErrorEvent;
+            login_textBox.Text = null;
+            password_maskedTextBox.Text = null;
         }
 
         private void checkin_button_Click(object sender, EventArgs e)
@@ -27,9 +29,7 @@ namespace ClientApp
             if (!chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text))
                 return;
 
-
             chat_Form.Show();
-
 
             this.Hide();
         }

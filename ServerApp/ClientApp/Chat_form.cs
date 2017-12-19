@@ -16,6 +16,13 @@ namespace ClientApp
 
     public partial class Chat_form : Form
     {
+
+        public Client client = new Client();
+
+        private DateTime currentTime;
+        private string currentUser;
+        private int messageCount;
+
         /// <summary>
         /// Обработчик сообщения с сервера
         /// </summary>
@@ -26,43 +33,51 @@ namespace ClientApp
             //don't ask, don't touch
             Action action = () =>
             {
-                switch (e.GetMessage.GetMessageType)
+                try
                 {
-                    case MessageType.Message:
-                    case MessageType.PrivateMessage:
-                    case MessageType.HistoryMessage:
-                        {
-                            AddMessage(e.GetMessage, e.GetServerSocket);
-                            break;
-                        }
-                    case MessageType.UserList:
-                        {
-                            string[] users = e.GetMessage.GetMessage.Split(new char[1] { ';' });
+                    switch (e.GetMessage.GetMessageType)
+                    {
+                        case MessageType.Message:
+                        case MessageType.PrivateMessage:
+                        case MessageType.HistoryMessage:
+                            {
+                                AddMessage(e.GetMessage, e.GetServerSocket);
+                                break;
+                            }
+                        case MessageType.UserList:
+                            {
+                                users_ListBox.Items.Add("Всем");
+                                string[] users = e.GetMessage.GetMessage.Split(new char[1] { ';' });
 
-                            foreach (string user in users)
-                                if(user!="") users_ListBox.Items.Add(user);     //фиксик починил баг
+                                foreach (string user in users)
+                                    if (user != "") users_ListBox.Items.Add(user);     //фиксик починил баг
 
-                            e.GetServerSocket.Send(Encoding.UTF8.GetBytes(
-                               new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение
+                                e.GetServerSocket.Send(Encoding.UTF8.GetBytes(
+                                   new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение
 
-                            break;
-                        }
-                    case MessageType.UserConnect:
-                        {
-                            users_ListBox.Items.Add(e.GetMessage.GetUsername);
-                            break;
-                        }
-                    case MessageType.UserDisconnect:
-                        {
-                            users_ListBox.Items.Remove(e.GetMessage.GetUsername);
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
+                                break;
+                            }
+                        case MessageType.UserConnect:
+                            {
+                                users_ListBox.Items.Add(e.GetMessage.GetUsername);
+                                break;
+                            }
+                        case MessageType.UserDisconnect:
+                            {
+                                users_ListBox.Items.Remove(e.GetMessage.GetUsername);
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
                 }
-                 
+                catch(NullReferenceException)
+                {
+                    MessageBox.Show("Unknown error", "Error", MessageBoxButtons.OK);
+                    CloseConnection();
+                }
             };
 
             if (InvokeRequired)
@@ -79,14 +94,7 @@ namespace ClientApp
 
             Action action = () =>
             {
-                sendMessage_textBox.Clear();
-                Chat_textBox.Clear();
-                //
-                users_ListBox.Items.Clear();
-                
-                client = new Client();
-
-                this.Hide();
+                CloseConnection();
 
             };
 
@@ -94,35 +102,65 @@ namespace ClientApp
                 Invoke(action);
             else
                 action();
-        }
-
-
-       
+        }       
 
         private void AddMessage(Message message,Socket server)
         {
+            if (currentTime.ToShortDateString() != message.GetTime.ToShortDateString())
+            {
+                Chat_textBox.AppendText("                          " + message.GetTime.ToShortDateString() + Environment.NewLine,
+                    Color.LightSlateGray, FontStyle.Italic);
+                currentUser = null;     //скинем чтобы написал
+            }
+
+            if (currentUser != message.GetUsername || messageCount == 10)
+            {
+                Chat_textBox.AppendText("" + message.GetUsername, Color.DarkBlue, FontStyle.Regular);
+                Chat_textBox.AppendText("    " + message.GetTime.ToShortTimeString() + Environment.NewLine,
+                    Color.LightGray, FontStyle.Regular);
+                messageCount = 0;
+            }
+
+
             if (message.GetMessageType == MessageType.PrivateMessage)
             {
-                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]",Color.LightSlateGray, FontStyle.Bold);
-                Chat_textBox.AppendText(message.GetUsername + ": "
-                                + message.GetMessage + Environment.NewLine, Color.Firebrick, FontStyle.Bold);
-                
+                Chat_textBox.AppendText("   " + message.GetMessage + Environment.NewLine, Color.Firebrick, FontStyle.Bold);                
             }
             else
             {
-                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]", Color.LightSlateGray, FontStyle.Bold);
-                Chat_textBox.AppendText(message.GetUsername + ": "
-                                + message.GetMessage + Environment.NewLine, Color.Black, FontStyle.Regular);
-                
+                Chat_textBox.AppendText("   " + message.GetMessage + Environment.NewLine, Color.Black, FontStyle.Regular);               
             }
 
-            if(message.GetMessageType == MessageType.HistoryMessage)
+            currentTime = message.GetTime;
+            currentUser = message.GetUsername;
+            messageCount++;
+
+            if (message.GetMessageType == MessageType.HistoryMessage)
                 server.Send(Encoding.UTF8.GetBytes(
                     new Message(MessageType.Message, DateTime.Now).Serialize()));   //посылаем подтверждение DON'T TOUCH
 
         }
 
-        public Client client = new Client();
+        public void CloseConnection()
+        {
+            users_ListBox.Items.Clear();
+            Chat_textBox.Clear();
+            sendMessage_textBox.Clear();
+
+            try
+            {
+                client.ConnectionFlag = false;
+                client.Socket.Send(Encoding.UTF8.GetBytes(new Message(MessageType.UserDisconnect, DateTime.Now).Serialize()));
+                //client.Socket.Shutdown(SocketShutdown.Both);
+                //client.Socket.Close();
+                client.ListenThread.Abort();
+            }
+            catch(NullReferenceException) { }
+            catch(SocketException) { }
+
+            this.Hide();
+            Program.cf.Show();
+        }
 
         public Chat_form()
         {
@@ -132,8 +170,9 @@ namespace ClientApp
             client.MessageEvent += MessageEvevntHandler;
             Client.ServerErrorEvent += ServerErrorEventHandler;
 
-            users_ListBox.Items.Add("Всем");
+            //users_ListBox.Items.Add("Всем");
         }
+
         private void Send()
         {
             if (sendMessage_textBox.Text == "" || sendMessage_textBox.Text == null) return;
@@ -154,6 +193,7 @@ namespace ClientApp
 
             sendMessage_textBox.Text = "";
         }
+
         private void send_button_Click(object sender, EventArgs e)
         {
             Send();
@@ -188,8 +228,7 @@ namespace ClientApp
                     }
                 case "СhangeUser":
                     {
-                        this.Hide();
-                        Program.cf.Show();
+                        CloseConnection();
                         break;
                     }
                 case "Exit":

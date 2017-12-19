@@ -49,12 +49,15 @@ namespace ClientApp
             handler(this, e);
         }
 
-        private Socket socket;
-        private static bool _connectionFlag=false;
+        private Socket _socket;
+        private bool _connectionFlag = false;
         private string _username;
+        private Thread listenThread;
 
-        public static bool ConnectionFlag { get => _connectionFlag;  }
+        public bool ConnectionFlag { get => _connectionFlag; set => _connectionFlag = value; }
         public string Username { get => _username; }
+        public Socket Socket { get => _socket; }
+        public Thread ListenThread { get => listenThread; set => listenThread = value; }
 
         public Client()
         {
@@ -83,11 +86,14 @@ namespace ClientApp
                 if (!Werification(sender, username, password))
                     return false;
 
-                socket = sender;
+                _socket = sender;
                 _connectionFlag = true;
                 _username = username;
 
-                Thread listenThread = new Thread(new ParameterizedThreadStart(Listen));
+                if (listenThread != null)
+                    listenThread.Abort();
+
+                listenThread = new Thread(new ParameterizedThreadStart(Listen));
                 listenThread.Start(this);
 
                 return true;
@@ -163,15 +169,15 @@ namespace ClientApp
             {
                 //Chat_form.ExitEvent += ExitEventHandler;
 
-                while (_connectionFlag)
+                while ((clientObject as Client)._connectionFlag)
                 {
-                    Message message = GetMessage((clientObject as Client).socket);
+                    Message message = GetMessage((clientObject as Client).Socket);
 
-                    (clientObject as Client).MessageEventRun(new MessageEventInfo(message,(clientObject as Client).socket));
+                    (clientObject as Client).MessageEventRun(new MessageEventInfo(message,(clientObject as Client).Socket));
                 }
                 
-                (clientObject as Client).socket.Shutdown(SocketShutdown.Both);
-                (clientObject as Client).socket.Close();
+                (clientObject as Client).Socket.Shutdown(SocketShutdown.Both);
+                (clientObject as Client).Socket.Close();
             }
             catch(SocketException)
             {
@@ -180,6 +186,14 @@ namespace ClientApp
             catch (ObjectDisposedException)
             {
                 ServerErrorEventRun(new ServerErrorEventInfo("Unknown error"));
+            }
+            catch(ThreadAbortException)
+            {
+                if ((clientObject as Client).Socket != null)
+                {
+                    (clientObject as Client).Socket.Shutdown(SocketShutdown.Both);
+                    (clientObject as Client).Socket.Close();
+                }
             }
         }
 
@@ -193,10 +207,10 @@ namespace ClientApp
             if (message == null || message == "") return;
 
             if(Recipient == null)
-                socket.Send(Encoding.UTF8.GetBytes(
+                Socket.Send(Encoding.UTF8.GetBytes(
                     new Message(MessageType.Message, DateTime.Now, _username, message).Serialize()));
             else
-                socket.Send(Encoding.UTF8.GetBytes(
+                Socket.Send(Encoding.UTF8.GetBytes(
                     new Message(MessageType.PrivateMessage, DateTime.Now, _username, message, Recipient).Serialize()));
 
         }

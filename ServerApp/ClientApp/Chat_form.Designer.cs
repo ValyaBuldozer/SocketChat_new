@@ -54,9 +54,9 @@
             this.sendMessage_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sendMessage_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sendMessage_button.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sendMessage_button.Location = new System.Drawing.Point(442, 363);
+            this.sendMessage_button.Location = new System.Drawing.Point(441, 363);
             this.sendMessage_button.Name = "sendMessage_button";
-            this.sendMessage_button.Size = new System.Drawing.Size(84, 70);
+            this.sendMessage_button.Size = new System.Drawing.Size(85, 70);
             this.sendMessage_button.TabIndex = 0;
             this.sendMessage_button.UseVisualStyleBackColor = false;
             this.sendMessage_button.Click += new System.EventHandler(this.send_button_Click);
@@ -68,7 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sendMessage_textBox.BackColor = System.Drawing.Color.AliceBlue;
             this.sendMessage_textBox.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sendMessage_textBox.Location = new System.Drawing.Point(119, 363);
+            this.sendMessage_textBox.Location = new System.Drawing.Point(118, 363);
             this.sendMessage_textBox.Multiline = true;
             this.sendMessage_textBox.Name = "sendMessage_textBox";
             this.sendMessage_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -138,7 +138,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.4F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.6F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel.Controls.Add(this.message_label, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.users_ListBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.sendMessage_button, 2, 1);
@@ -179,7 +179,7 @@
             this.users_ListBox.Location = new System.Drawing.Point(6, 0);
             this.users_ListBox.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
             this.users_ListBox.Name = "users_ListBox";
-            this.users_ListBox.Size = new System.Drawing.Size(110, 360);
+            this.users_ListBox.Size = new System.Drawing.Size(109, 360);
             this.users_ListBox.TabIndex = 27;
             // 
             // Chat_textBox
@@ -191,10 +191,10 @@
             this.Chat_textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableLayoutPanel.SetColumnSpan(this.Chat_textBox, 2);
             this.Chat_textBox.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Chat_textBox.Location = new System.Drawing.Point(119, 3);
+            this.Chat_textBox.Location = new System.Drawing.Point(118, 3);
             this.Chat_textBox.Name = "Chat_textBox";
             this.Chat_textBox.ReadOnly = true;
-            this.Chat_textBox.Size = new System.Drawing.Size(407, 354);
+            this.Chat_textBox.Size = new System.Drawing.Size(408, 354);
             this.Chat_textBox.TabIndex = 29;
             this.Chat_textBox.Text = "";
             this.Chat_textBox.TextChanged += new System.EventHandler(this.Chat_textBox_TextChanged);
