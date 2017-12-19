@@ -210,7 +210,8 @@ namespace ClientApp
         {
             timer.Start();
         }
-        
+
+        Help_form help;
         private void Top_Menu_Click(object sender, EventArgs e)
         {
             switch ((sender as ToolStripMenuItem).Name)
@@ -223,8 +224,11 @@ namespace ClientApp
                     }
                 case "Help":
                     {
-                        Help_form help = new Help_form();
-                        help.Show();
+                        if ((help == null) || (help.IsDisposed))
+                        {
+                            help = new Help_form();
+                            help.Show();
+                        }
                         break;
                     }
                 case "СhangeUser":
@@ -276,13 +280,13 @@ namespace ClientApp
             Chat_textBox.ScrollToCaret();
         }
 
-        
 
+        
         private void Chat_form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1)
+            if (e.KeyCode == Keys.F1 && (help == null) || (help.IsDisposed))
             {
-                Help_form help = new Help_form();
+                help = new Help_form();
                 help.Show();
 
             }

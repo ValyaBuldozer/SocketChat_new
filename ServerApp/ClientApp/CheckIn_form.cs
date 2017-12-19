@@ -71,18 +71,22 @@ namespace ClientApp
                 timer.Stop();
             }
         }
-
+        Help_form help;
         private void help_button_Click(object sender, EventArgs e)
         {
-            Help_form help = new Help_form();
-            help.Show();
+            if  ((help == null) || (help.IsDisposed))
+            {
+                help = new Help_form();
+                help.Show();
+            }
         }
 
+        
         private void CheckIn_form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1)
+            if (e.KeyCode == Keys.F1 && (help == null)||(help.IsDisposed))
             {
-                Help_form help = new Help_form();
+                help = new Help_form();
                 help.Show();
 
             }
