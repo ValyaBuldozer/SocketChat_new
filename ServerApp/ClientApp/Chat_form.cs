@@ -166,6 +166,7 @@ namespace ClientApp
         {
             
             InitializeComponent();
+            this.KeyPreview = true;
 
             client.MessageEvent += MessageEvevntHandler;
             Client.ServerErrorEvent += ServerErrorEventHandler;
@@ -248,8 +249,8 @@ namespace ClientApp
             }
         }
 
-        
 
+        
         private void sendMessage_textBox_KeyPress(object sender, KeyPressEventArgs e)
         {
            
@@ -258,6 +259,8 @@ namespace ClientApp
                 e.Handled = true;
                 Send();
             }
+
+          
         }
 
         private void Chat_form_Load(object sender, EventArgs e)
@@ -271,6 +274,18 @@ namespace ClientApp
             Chat_textBox.SelectionStart = Chat_textBox.Text.Length;
             // scroll it automatically
             Chat_textBox.ScrollToCaret();
+        }
+
+        
+
+        private void Chat_form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                Help_form help = new Help_form();
+                help.Show();
+
+            }
         }
     }
     public static class RichTextBoxExtensions

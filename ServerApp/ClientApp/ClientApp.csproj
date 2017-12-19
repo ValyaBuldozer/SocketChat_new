@@ -124,6 +124,8 @@
   <ItemGroup>
     <Content Include="Chat.ico" />
     <None Include="Resources\sico_new.ico" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\helper_ico.png" />
     <Content Include="sico_new.ico" />
     <None Include="Resources\communication.jpg" />
     <None Include="Resources\ICO.ico" />

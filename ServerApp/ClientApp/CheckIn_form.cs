@@ -18,6 +18,7 @@ namespace ClientApp
         public CheckIn_form()
         {
             InitializeComponent();
+            this.KeyPreview = true;
             chat_Form = new Chat_form();
             Client.ServerErrorEvent += HandlerServerErrorEvent;
             login_textBox.Text = null;
@@ -68,6 +69,22 @@ namespace ClientApp
             if (this.Opacity == 1)
             {
                 timer.Stop();
+            }
+        }
+
+        private void help_button_Click(object sender, EventArgs e)
+        {
+            Help_form help = new Help_form();
+            help.Show();
+        }
+
+        private void CheckIn_form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                Help_form help = new Help_form();
+                help.Show();
+
             }
         }
     }

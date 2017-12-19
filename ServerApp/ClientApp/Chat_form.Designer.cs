@@ -54,9 +54,9 @@
             this.sendMessage_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sendMessage_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sendMessage_button.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sendMessage_button.Location = new System.Drawing.Point(441, 363);
+            this.sendMessage_button.Location = new System.Drawing.Point(439, 363);
             this.sendMessage_button.Name = "sendMessage_button";
-            this.sendMessage_button.Size = new System.Drawing.Size(85, 70);
+            this.sendMessage_button.Size = new System.Drawing.Size(87, 70);
             this.sendMessage_button.TabIndex = 0;
             this.sendMessage_button.UseVisualStyleBackColor = false;
             this.sendMessage_button.Click += new System.EventHandler(this.send_button_Click);
@@ -72,7 +72,7 @@
             this.sendMessage_textBox.Multiline = true;
             this.sendMessage_textBox.Name = "sendMessage_textBox";
             this.sendMessage_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.sendMessage_textBox.Size = new System.Drawing.Size(317, 70);
+            this.sendMessage_textBox.Size = new System.Drawing.Size(315, 70);
             this.sendMessage_textBox.TabIndex = 0;
             this.sendMessage_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sendMessage_textBox_KeyPress);
             // 
@@ -138,7 +138,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.4F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.6F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
             this.tableLayoutPanel.Controls.Add(this.message_label, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.users_ListBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.sendMessage_button, 2, 1);
@@ -218,6 +218,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chat_form_FormClosing);
             this.Load += new System.EventHandler(this.Chat_form_Load);
             this.Shown += new System.EventHandler(this.Chat_form_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Chat_form_KeyDown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);

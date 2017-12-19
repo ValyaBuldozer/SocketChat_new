@@ -120,9 +120,31 @@
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="Info_box_reg.Text" xml:space="preserve">
+    <value>Чтобы начать работу с нашим чатом, требуется пройти процедуру регистрации на сервере. 
+Чтобы начать работу с сервером, требуется его запустить, прописав команду run, потом 
+воспользоваться командой register и следовать инструкциям.
+Чтобы войти в наш чат, введите ваш логин и пароль в соответствующие поля
+Enjoy!</value>
+  </data>
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>97, 17</value>
   </metadata>
+  <data name="Info_box_interf.Text" xml:space="preserve">
+    <value>Оцените наш дизайн
+Если вас не устраивает размер чата, то можете его растянуть, наш чат поддерживает данную
+функцию
+После того как вы настроите размеры под себя, вы можете начинать работу с чатом
+Слева вы можете увидеть всех пользователей, которые в данный момент online
+Enjoy
+</value>
+  </data>
+  <data name="Info_box_mes.Text" xml:space="preserve">
+    <value>Чат поддерживает личные сообщения, чтобы написать такое "письмо" выберите левой кнопкой
+мыши нужного пользователя и ваше сообщение увидит только он
+После этого чтобы опять начать писать в общий чат, выберите слева пункт "Всем"
+Enjoy</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

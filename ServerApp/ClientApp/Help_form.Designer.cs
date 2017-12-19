@@ -56,7 +56,7 @@
             this.Info_box_reg.ReadOnly = true;
             this.Info_box_reg.Size = new System.Drawing.Size(379, 207);
             this.Info_box_reg.TabIndex = 0;
-            this.Info_box_reg.Text = "Reg";
+            this.Info_box_reg.Text = resources.GetString("Info_box_reg.Text");
             // 
             // menuStrip
             // 
@@ -106,7 +106,7 @@
             this.Info_box_interf.ReadOnly = true;
             this.Info_box_interf.Size = new System.Drawing.Size(379, 207);
             this.Info_box_interf.TabIndex = 2;
-            this.Info_box_interf.Text = "Interf";
+            this.Info_box_interf.Text = resources.GetString("Info_box_interf.Text");
             // 
             // Info_box_mes
             // 
@@ -117,7 +117,7 @@
             this.Info_box_mes.ReadOnly = true;
             this.Info_box_mes.Size = new System.Drawing.Size(379, 207);
             this.Info_box_mes.TabIndex = 3;
-            this.Info_box_mes.Text = "Mes";
+            this.Info_box_mes.Text = resources.GetString("Info_box_mes.Text");
             // 
             // understand_button
             // 
@@ -135,10 +135,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 279);
             this.Controls.Add(this.understand_button);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.Info_box_mes);
             this.Controls.Add(this.Info_box_interf);
             this.Controls.Add(this.Info_box_reg);
-            this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
