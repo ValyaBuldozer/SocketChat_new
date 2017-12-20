@@ -71,24 +71,26 @@ namespace ClientApp
                 timer.Stop();
             }
         }
-        Help_form help;
+        
         private void help_button_Click(object sender, EventArgs e)
         {
-            if  ((help == null) || (help.IsDisposed))
+            if  ((chat_Form.help == null) || (chat_Form.help.IsDisposed))
             {
-                help = new Help_form();
-                help.Show();
+                chat_Form.help = new Help_form();
+                chat_Form.help.Show();
             }
         }
 
         
         private void CheckIn_form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1 && (help == null)||(help.IsDisposed))
+            if (e.KeyCode == Keys.F1)
             {
-                help = new Help_form();
-                help.Show();
-
+                if ((chat_Form.help == null) || (chat_Form.help.IsDisposed))
+                {
+                    chat_Form.help = new Help_form();
+                    chat_Form.help.Show();
+                }
             }
         }
     }

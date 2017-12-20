@@ -211,15 +211,15 @@ namespace ClientApp
             timer.Start();
         }
 
-        Help_form help;
+        public Help_form help;
         private void Top_Menu_Click(object sender, EventArgs e)
         {
             switch ((sender as ToolStripMenuItem).Name)
             {
                 case "About":
                     {
-                        AboutBox ab = new AboutBox();
-                        ab.Show();
+                        AboutBox about = new AboutBox();
+                        about.ShowDialog();
                         break;
                     }
                 case "Help":
@@ -281,14 +281,16 @@ namespace ClientApp
         }
 
 
-        
+       
         private void Chat_form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1 && (help == null) || (help.IsDisposed))
+            if (e.KeyCode == Keys.F1)
             {
-                help = new Help_form();
-                help.Show();
-
+                if ((help == null) || (help.IsDisposed))
+                {
+                    help = new Help_form();
+                    help.Show();
+                }
             }
         }
     }
