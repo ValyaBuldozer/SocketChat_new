@@ -73,7 +73,8 @@
             this.login_textBox.Location = new System.Drawing.Point(119, 13);
             this.login_textBox.Name = "login_textBox";
             this.login_textBox.Size = new System.Drawing.Size(181, 23);
-            this.login_textBox.TabIndex = 1;
+            this.login_textBox.TabIndex = 0;
+            this.login_textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // close_button
             // 
@@ -82,7 +83,7 @@
             this.close_button.Location = new System.Drawing.Point(0, 0);
             this.close_button.Name = "close_button";
             this.close_button.Size = new System.Drawing.Size(34, 35);
-            this.close_button.TabIndex = 3;
+            this.close_button.TabIndex = 2;
             this.close_button.UseVisualStyleBackColor = true;
             this.close_button.Click += new System.EventHandler(this.close_button_Click);
             // 
@@ -93,10 +94,10 @@
             this.panel.Controls.Add(this.close_button);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panel.Location = new System.Drawing.Point(311, 3);
+            this.panel.Location = new System.Drawing.Point(309, 3);
             this.panel.Name = "panel";
             this.tableLayoutPanel.SetRowSpan(this.panel, 3);
-            this.panel.Size = new System.Drawing.Size(38, 134);
+            this.panel.Size = new System.Drawing.Size(40, 134);
             this.panel.TabIndex = 1;
             // 
             // help_button
@@ -106,7 +107,7 @@
             this.help_button.Location = new System.Drawing.Point(-1, 30);
             this.help_button.Name = "help_button";
             this.help_button.Size = new System.Drawing.Size(34, 35);
-            this.help_button.TabIndex = 4;
+            this.help_button.TabIndex = 3;
             this.help_button.UseVisualStyleBackColor = true;
             this.help_button.Click += new System.EventHandler(this.help_button_Click);
             // 
@@ -119,7 +120,8 @@
             this.password_maskedTextBox.PasswordChar = '*';
             this.password_maskedTextBox.ResetOnSpace = false;
             this.password_maskedTextBox.Size = new System.Drawing.Size(181, 23);
-            this.password_maskedTextBox.TabIndex = 2;
+            this.password_maskedTextBox.TabIndex = 1;
+            this.password_maskedTextBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // timer
             // 
@@ -130,10 +132,11 @@
             // 
             this.checkin_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkin_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkin_button.Enabled = false;
             this.checkin_button.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkin_button.Location = new System.Drawing.Point(119, 103);
             this.checkin_button.Name = "checkin_button";
-            this.checkin_button.Size = new System.Drawing.Size(186, 34);
+            this.checkin_button.Size = new System.Drawing.Size(184, 34);
             this.checkin_button.TabIndex = 4;
             this.checkin_button.Text = "CHECK IN";
             this.checkin_button.UseVisualStyleBackColor = true;
@@ -144,7 +147,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.84615F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.15385F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel.Controls.Add(this.checkin_button, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.panel, 2, 0);
             this.tableLayoutPanel.Controls.Add(this.password_maskedTextBox, 1, 1);

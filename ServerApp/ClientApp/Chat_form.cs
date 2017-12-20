@@ -159,6 +159,8 @@ namespace ClientApp
             catch(SocketException) { }
 
             this.Hide();
+            help.Close();
+            about.Close();
             Program.cf.Show();
         }
 
@@ -212,13 +214,14 @@ namespace ClientApp
         }
 
         public Help_form help;
+        AboutBox about;
         private void Top_Menu_Click(object sender, EventArgs e)
         {
             switch ((sender as ToolStripMenuItem).Name)
             {
                 case "About":
                     {
-                        AboutBox about = new AboutBox();
+                        about = new AboutBox();
                         about.ShowDialog();
                         break;
                     }

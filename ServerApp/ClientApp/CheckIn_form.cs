@@ -25,14 +25,21 @@ namespace ClientApp
             password_maskedTextBox.Text = null;
         }
 
-        private void checkin_button_Click(object sender, EventArgs e)
+        private void Check_In()
         {
+            
             if (!chat_Form.client.ConnectToServer(login_textBox.Text, password_maskedTextBox.Text))
                 return;
 
             chat_Form.Show();
 
             this.Hide();
+        }
+
+
+        private void checkin_button_Click(object sender, EventArgs e)
+        {
+            Check_In();
         }
 
         private void close_button_Click(object sender, EventArgs e)
@@ -84,14 +91,37 @@ namespace ClientApp
         
         private void CheckIn_form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1)
+            switch (e.KeyCode)
             {
-                if ((chat_Form.help == null) || (chat_Form.help.IsDisposed))
-                {
-                    chat_Form.help = new Help_form();
-                    chat_Form.help.Show();
-                }
+                case Keys.F1:
+                    {
+                        if ((chat_Form.help == null) || (chat_Form.help.IsDisposed))
+                        {
+                            chat_Form.help = new Help_form();
+                            chat_Form.help.Show();
+                        }
+                        break;
+                    }
+                case Keys.Enter:
+                    {
+                        e.Handled = true;
+                        Check_In();
+                        break;
+                    }
+            }
+           
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if ((login_textBox.Text != "" && login_textBox.Text != null) &&
+                (password_maskedTextBox.Text != "" && password_maskedTextBox.Text != null))
+                checkin_button.Enabled = true;
+            else
+            {
+                checkin_button.Enabled = false;
             }
         }
+        
     }
 }

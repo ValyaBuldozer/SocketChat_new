@@ -123,7 +123,7 @@ namespace ClientApp
             switch (answer.GetMessage)
             { 
                 case "name_not_found":
-                    ServerErrorEventRun(new ServerErrorEventInfo("User is not regitred"));
+                    ServerErrorEventRun(new ServerErrorEventInfo("User is not registered "));
                     return false;
 
                 case "invalid_password":
