@@ -106,7 +106,10 @@ namespace ClientApp
                 case Keys.Enter:
                     {
                         e.Handled = true;
-                        Check_In();
+                        if (checkin_button.Enabled)
+                        {
+                            Check_In();
+                        }
                         break;
                     }
             }
