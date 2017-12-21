@@ -136,11 +136,10 @@ namespace ServerApp
                             }
                             Server.GetDbContext.Messages.RemoveRange(Server.GetDbContext.Messages);
                             Server.GetDbContext.SaveChanges();
-                            Console.WriteLine(Server.GetDbContext.Database.Connection.ToString());
                             break;
                         }
 
-                    case "cleanusers":
+                    case "clearusers":
                         {
                             if (serverThread.IsAlive)
                             {

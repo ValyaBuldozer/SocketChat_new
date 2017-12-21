@@ -159,8 +159,8 @@ namespace ClientApp
             catch(SocketException) { }
 
             this.Hide();
-            help.Close();
-            about.Close();
+            if(help!=null) help.Close();
+            if(about!=null) about.Close();
             Program.cf.Show();
         }
 
@@ -187,11 +187,8 @@ namespace ClientApp
                 client.SendMessage(sendMessage_textBox.Text, users_ListBox.SelectedItem.ToString());
 
                 //сами ручками его отобразим
-                Chat_textBox.AppendText("[" + DateTime.Now.ToShortTimeString() + "]", Color.LightSlateGray, FontStyle.Bold);
-                Chat_textBox.AppendText("Private to " + users_ListBox.SelectedItem.ToString()
-                    + ": " + sendMessage_textBox.Text + Environment.NewLine, Color.Firebrick, FontStyle.Bold);
-
-                
+                AddMessage(new Message(MessageType.PrivateMessage, DateTime.Now, "Private to " + users_ListBox.SelectedItem.ToString(),
+                    sendMessage_textBox.Text, users_ListBox.SelectedItem.ToString()),client.Socket);
             }
 
             sendMessage_textBox.Text = "";
