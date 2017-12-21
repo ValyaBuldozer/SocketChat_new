@@ -147,6 +147,9 @@ namespace ClientApp
             Chat_textBox.Clear();
             sendMessage_textBox.Clear();
 
+            currentTime = new DateTime();
+            currentUser = "";
+
             try
             {
                 client.ConnectionFlag = false;
@@ -208,6 +211,7 @@ namespace ClientApp
         private void Chat_form_Shown(object sender, EventArgs e)
         {
             timer.Start();
+            this.Text = "Chat " + client.Username;
         }
 
         public Help_form help;

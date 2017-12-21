@@ -311,11 +311,11 @@ namespace ServerApp
         /// </summary>
         public static void End()
         {
-            foreach(Socket socket in socketList)
-            {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-            }
+            //foreach(Socket socket in socketList)
+            //{
+            //    socket.Shutdown(SocketShutdown.Both);
+            //    socket.Close();
+            //}
 
             SyncDB(history,false);
             //Thread.CurrentThread.Abort();
