@@ -67,6 +67,7 @@ namespace ClientApp
 
         private void CheckIn_form_Shown(object sender, EventArgs e)
         {
+            
             timer.Start();
         }
 
