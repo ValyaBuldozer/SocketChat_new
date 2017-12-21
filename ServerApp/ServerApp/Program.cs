@@ -28,7 +28,8 @@ namespace ServerApp
             while(endFlag)
             {
                 Console.WriteLine("\nEnter command");
-                switch(Console.ReadLine())
+
+                switch (Console.ReadLine())
                 {
                     case "run":
                         {
@@ -82,8 +83,20 @@ namespace ServerApp
                                 break;
                             }
 
+                            if(username.Length >12 || username == "" || username.Contains(' '))
+                            {
+                                Console.WriteLine("Incorrect username");
+                                break;
+                            }
+
                             Console.WriteLine("Enter password");
                             string password = Console.ReadLine();
+
+                            if(password.Length > 36 || password.Length < 4 || password.Contains(' '))
+                            {
+                                Console.WriteLine("Incorrect password");
+                                break;
+                            }
 
                             Server.UsernamePasswaordDic.Add(username, new ClientInfo(username, password));
                             Server.GetDbContext.Users.Add(new User { Username = username,Password = password });
@@ -93,10 +106,62 @@ namespace ServerApp
                             break;
                         }
 
+                    case "users":
+                        {
+                            if (!serverThread.IsAlive)
+                            {
+                                Console.WriteLine("Run the server");
+                                break;
+                            }
+
+                            foreach (var user in Server.UsernamePasswaordDic)
+                            {
+                                string s = user.Key;
+                                if (user.Value.IsOnline)
+                                    s += " " + "online";
+                                else
+                                    s += " " + "offline";
+                                Console.WriteLine(s);
+                            }
+
+                            break;
+                        }
+
                     case "clearhistory":
                         {
+                            if (serverThread.IsAlive)
+                            {
+                                Console.WriteLine("Cannot execute this operation while server is running.");
+                                break;
+                            }
                             Server.GetDbContext.Messages.RemoveRange(Server.GetDbContext.Messages);
                             Server.GetDbContext.SaveChanges();
+                            Console.WriteLine(Server.GetDbContext.Database.Connection.ToString());
+                            break;
+                        }
+
+                    case "cleanusers":
+                        {
+                            if (serverThread.IsAlive)
+                            {
+                                Console.WriteLine("Cannot execute this operation while server is running.");
+                                break;
+                            }
+                            Server.GetDbContext.Users.RemoveRange(Server.GetDbContext.Users);
+                            Server.GetDbContext.SaveChanges();
+                            break;
+                        }
+
+                    case "help":
+                        {
+                            Console.WriteLine("run - запустиь сервер");
+                            Console.WriteLine("end - безопасное завершение работы сервера");
+                            Console.WriteLine("register - зарегистрировать пользователя");
+                            Console.WriteLine("users - посмотреть список пользователей");
+                            Console.WriteLine("cleanhistory - очистить историю сообщений");
+                            Console.WriteLine("cleanusers - очистиь список пользователей");
+                            Console.WriteLine("help - помощь");
+
                             break;
                         }
 

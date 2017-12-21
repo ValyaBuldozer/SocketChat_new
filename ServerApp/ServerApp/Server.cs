@@ -107,7 +107,7 @@ namespace ServerApp
             try
             {
                 username = GetNamePassword((handler as Socket));
-                Thread.Sleep(200);          //грязный хак, надо убрать
+                Thread.Sleep(200);   
                 SendUserList(handler as Socket);
                 (handler as Socket).Receive(new byte[1024]);    //ждем подтверждения от клиента
                 SendHistory(handler as Socket);     //houston we have a problem

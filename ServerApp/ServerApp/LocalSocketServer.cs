@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace ServerApp
 {
+
+    //ВСЕ УСТРЕЛО И НЕ ИСПОЛЬЗУЕТСЯ
+
     class ClientSocket
     {
          Queue<string> messageQueue = new Queue<string>();
