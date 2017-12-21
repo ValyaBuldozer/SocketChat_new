@@ -210,7 +210,7 @@ namespace ClientApp
 
         private void Chat_form_Shown(object sender, EventArgs e)
         {
-            this.Opacity = 0;
+            //this.Opacity = 0;
             timer.Start();
             this.Text = "Chat " + client.Username;
         }
