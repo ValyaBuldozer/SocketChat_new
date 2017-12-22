@@ -172,6 +172,7 @@ namespace ClientApp
             
             InitializeComponent();
             this.KeyPreview = true;
+            sendMessage_button.BackColor = Color.FromArgb(39, 159, 211);
 
             client.MessageEvent += MessageEvevntHandler;
             Client.ServerErrorEvent += ServerErrorEventHandler;
