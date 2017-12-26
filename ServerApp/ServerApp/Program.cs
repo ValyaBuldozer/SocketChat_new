@@ -83,7 +83,7 @@ namespace ServerApp
                                 break;
                             }
 
-                            if(username.Length >10 || username == "" || username.Contains(' '))
+                            if(username.Length >10 || username.Length<3 || username == "" || username.Contains(' '))
                             {
                                 Console.WriteLine("Incorrect username");
                                 break;
