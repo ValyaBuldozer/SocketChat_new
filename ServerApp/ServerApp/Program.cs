@@ -153,7 +153,7 @@ namespace ServerApp
 
                     case "help":
                         {
-                            Console.WriteLine("run - запустиь сервер");
+                            Console.WriteLine("run - запустить сервер");
                             Console.WriteLine("end - безопасное завершение работы сервера");
                             Console.WriteLine("register - зарегистрировать пользователя");
                             Console.WriteLine("users - посмотреть список пользователей");
