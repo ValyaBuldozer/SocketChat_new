@@ -136,6 +136,7 @@ namespace ServerApp
                             }
                             Server.GetDbContext.Messages.RemoveRange(Server.GetDbContext.Messages);
                             Server.GetDbContext.SaveChanges();
+                            Console.WriteLine("Completed");
                             break;
                         }
 
@@ -148,6 +149,7 @@ namespace ServerApp
                             }
                             Server.GetDbContext.Users.RemoveRange(Server.GetDbContext.Users);
                             Server.GetDbContext.SaveChanges();
+                            Console.WriteLine("Completed");
                             break;
                         }
 
@@ -157,8 +159,8 @@ namespace ServerApp
                             Console.WriteLine("end - безопасное завершение работы сервера");
                             Console.WriteLine("register - зарегистрировать пользователя");
                             Console.WriteLine("users - посмотреть список пользователей");
-                            Console.WriteLine("cleanhistory - очистить историю сообщений");
-                            Console.WriteLine("cleanusers - очистиь список пользователей");
+                            Console.WriteLine("clearhistory - очистить историю сообщений");
+                            Console.WriteLine("clearusers - очистить список пользователей");
                             Console.WriteLine("help - помощь");
 
                             break;
