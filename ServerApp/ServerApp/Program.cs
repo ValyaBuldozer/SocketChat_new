@@ -134,6 +134,7 @@ namespace ServerApp
                                 Console.WriteLine("Cannot execute this operation while server is running.");
                                 break;
                             }
+                            Console.WriteLine("Wait...");
                             Server.GetDbContext.Messages.RemoveRange(Server.GetDbContext.Messages);
                             Server.GetDbContext.SaveChanges();
                             Console.WriteLine("Completed");
@@ -147,6 +148,7 @@ namespace ServerApp
                                 Console.WriteLine("Cannot execute this operation while server is running.");
                                 break;
                             }
+                            Console.WriteLine("Wait...");
                             Server.GetDbContext.Users.RemoveRange(Server.GetDbContext.Users);
                             Server.GetDbContext.SaveChanges();
                             Console.WriteLine("Completed");
